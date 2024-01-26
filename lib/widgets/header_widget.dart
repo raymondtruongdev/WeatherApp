@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:weather_app/controller/global_controller.dart';
+import 'package:weather_app/model/weather_data_current.dart';
 
 class HeaderWidget extends StatefulWidget {
-  const HeaderWidget({Key? key}) : super(key: key);
+  final WeatherDataCurrent weatherDataCurrent;
+
+  const HeaderWidget({Key? key, required this.weatherDataCurrent})
+      : super(key: key);
 
   @override
   State<HeaderWidget> createState() => _HeaderWidgetState();
@@ -15,6 +20,7 @@ class _HeaderWidgetState extends State<HeaderWidget> {
       Get.put(GlobalController(), permanent: true);
 
   String city = "";
+  String date = DateFormat("yMMMMd").format(DateTime.now());
   @override
   void initState() {
     getAddress(globalController.getLattitude().value,
@@ -27,7 +33,15 @@ class _HeaderWidgetState extends State<HeaderWidget> {
     Placemark place = placemark[0];
 
     setState(() {
-      city = place.locality!;
+      // city = place.locality!;
+      print(place.locality!);
+
+      city =
+          globalController.getData().weatherCurrent?.weatherCurrent.name ?? '';
+
+      print(globalController.getLattitude().value);
+      print(globalController.getLongitude().value);
+      print(city);
     });
   }
 
@@ -36,9 +50,15 @@ class _HeaderWidgetState extends State<HeaderWidget> {
     return Column(
       children: [
         Container(
-          color: Colors.green,
-          child: Text(city),
-        )
+          margin: const EdgeInsets.only(left: 20, right: 20),
+          alignment: Alignment.topLeft,
+          child: Text(city, style: const TextStyle(fontSize: 35)),
+        ),
+        Container(
+          margin: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
+          alignment: Alignment.topLeft,
+          child: Text(date, style: const TextStyle(fontSize: 14)),
+        ),
       ],
     );
   }
