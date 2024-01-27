@@ -20,7 +20,10 @@ class _HeaderWidgetState extends State<HeaderWidget> {
       Get.put(GlobalController(), permanent: true);
 
   String city = "";
-  String date = DateFormat("yMMMMd").format(DateTime.now());
+  // String date = DateFormat("yMMMMd HH:mm").format(DateTime.now());
+  final date = DateFormat('dd MMMM yyyy - HH:mm').format(DateTime.now());
+  String datedemo = "26 January 2024 - 22:30";
+
   @override
   void initState() {
     getAddress(globalController.getLattitude().value,
@@ -57,7 +60,7 @@ class _HeaderWidgetState extends State<HeaderWidget> {
         Container(
           margin: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
           alignment: Alignment.topLeft,
-          child: Text(date, style: const TextStyle(fontSize: 14)),
+          child: Text(datedemo, style: const TextStyle(fontSize: 14)),
         ),
       ],
     );

@@ -3429,6 +3429,330 @@ var openWeatherMapUSAForecast = {
   }
 };
 
+var openWeatherMapDemoCurrent = {
+  "coord": {"lon": 106.6956, "lat": 10.7718},
+  "weather": [
+    {"id": 801, "main": "Clouds", "description": "few clouds", "icon": "04n"}
+  ],
+  "base": "stations",
+  "main": {
+    "temp": 26.27,
+    "feels_like": 27.3,
+    "temp_min": 25.27,
+    "temp_max": 27.27,
+    "pressure": 1015,
+    "humidity": 43
+  },
+  "visibility": 10000,
+  "wind": {"speed": 1.54, "deg": 0},
+  "clouds": {"all": 20},
+  "dt": 1706281200,
+  "sys": {
+    "type": 1,
+    "id": 9314,
+    "country": "VN",
+    "sunrise": 1706311009,
+    "sunset": 1706352868
+  },
+  "timezone": 25200,
+  "id": 1566083,
+  "name": "Ho Chi Minh City",
+  "cod": 200
+};
+
+var openWeatherDemoForecast = {
+  "cod": "200",
+  "message": 0,
+  "cnt": 40,
+  "list": [
+    {
+      "dt": 1706292000,
+      "main": {
+        "temp": 32.97,
+        "feels_like": 34.41,
+        "temp_min": 32.97,
+        "temp_max": 33.83,
+        "pressure": 1015,
+        "sea_level": 1015,
+        "grnd_level": 1012,
+        "humidity": 43,
+        "temp_kf": -0.86
+      },
+      "weather": [
+        {
+          "id": 801,
+          "main": "Clouds",
+          "description": "few clouds",
+          "icon": "01d"
+        }
+      ],
+      "clouds": {"all": 20},
+      "wind": {"speed": 1.38, "deg": 351, "gust": 2.06},
+      "visibility": 10000,
+      "pop": 0,
+      "sys": {"pod": "d"},
+      "dt_txt": "2024-01-27 06:00:00"
+    },
+    {
+      "dt": 1706378400,
+      "main": {
+        "temp": 32.97,
+        "feels_like": 33.95,
+        "temp_min": 32.97,
+        "temp_max": 32.97,
+        "pressure": 1014,
+        "sea_level": 1014,
+        "grnd_level": 1010,
+        "humidity": 41,
+        "temp_kf": 0
+      },
+      "weather": [
+        {
+          "id": 802,
+          "main": "Clouds",
+          "description": "scattered clouds",
+          "icon": "02d"
+        }
+      ],
+      "clouds": {"all": 33},
+      "wind": {"speed": 3.92, "deg": 162, "gust": 2.79},
+      "visibility": 10000,
+      "pop": 0,
+      "sys": {"pod": "d"},
+      "dt_txt": "2024-01-27 09:00:00"
+    },
+    {
+      "dt": 1706464800,
+      "main": {
+        "temp": 28.58,
+        "feels_like": 29.46,
+        "temp_min": 26.38,
+        "temp_max": 28.58,
+        "pressure": 1014,
+        "sea_level": 1014,
+        "grnd_level": 1012,
+        "humidity": 53,
+        "temp_kf": 2.2
+      },
+      "weather": [
+        {
+          "id": 802,
+          "main": "Clouds",
+          "description": "scattered clouds",
+          "icon": "03d"
+        }
+      ],
+      "clouds": {"all": 29},
+      "wind": {"speed": 5.01, "deg": 143, "gust": 8.6},
+      "visibility": 10000,
+      "pop": 0,
+      "sys": {"pod": "n"},
+      "dt_txt": "2024-01-27 12:00:00"
+    },
+    {
+      "dt": 1706551200,
+      "main": {
+        "temp": 24.61,
+        "feels_like": 24.82,
+        "temp_min": 24.61,
+        "temp_max": 25.61,
+        "pressure": 1015,
+        "sea_level": 1015,
+        "grnd_level": 1013,
+        "humidity": 65,
+        "temp_kf": 0
+      },
+      "weather": [
+        {
+          "id": 802,
+          "main": "Clouds",
+          "description": "scattered clouds",
+          "icon": "04d"
+        }
+      ],
+      "clouds": {"all": 34},
+      "wind": {"speed": 3.15, "deg": 113, "gust": 6.4},
+      "visibility": 10000,
+      "pop": 0,
+      "sys": {"pod": "n"},
+      "dt_txt": "2024-01-27 15:00:00"
+    },
+    {
+      "dt": 1706637600,
+      "main": {
+        "temp": 24.03,
+        "feels_like": 24.19,
+        "temp_min": 24.03,
+        "temp_max": 25.03,
+        "pressure": 1014,
+        "sea_level": 1014,
+        "grnd_level": 1013,
+        "humidity": 65,
+        "temp_kf": 0
+      },
+      "weather": [
+        {
+          "id": 802,
+          "main": "Clouds",
+          "description": "scattered clouds",
+          "icon": "09d"
+        }
+      ],
+      "clouds": {"all": 35},
+      "wind": {"speed": 1.78, "deg": 44, "gust": 3.41},
+      "visibility": 10000,
+      "pop": 0,
+      "sys": {"pod": "n"},
+      "dt_txt": "2024-01-27 18:00:00"
+    },
+    {
+      "dt": 1706724000,
+      "main": {
+        "temp": 20.22,
+        "feels_like": 20.22,
+        "temp_min": 18.13,
+        "temp_max": 21.13,
+        "pressure": 1014,
+        "sea_level": 1014,
+        "grnd_level": 1013,
+        "humidity": 66,
+        "temp_kf": 0
+      },
+      "weather": [
+        {
+          "id": 801,
+          "main": "Clouds",
+          "description": "few clouds",
+          "icon": "11d"
+        }
+      ],
+      "clouds": {"all": 19},
+      "wind": {"speed": 1.9, "deg": 36, "gust": 3.07},
+      "visibility": 10000,
+      "pop": 0,
+      "sys": {"pod": "n"},
+      "dt_txt": "2024-01-27 21:00:00"
+    },
+    {
+      "dt": 1706810400,
+      "main": {
+        "temp": 15.2,
+        "feels_like": 15.1,
+        "temp_min": 13.98,
+        "temp_max": 15.98,
+        "pressure": 1016,
+        "sea_level": 1016,
+        "grnd_level": 1015,
+        "humidity": 66,
+        "temp_kf": 0
+      },
+      "weather": [
+        {
+          "id": 801,
+          "main": "Clouds",
+          "description": "few clouds",
+          "icon": "13d"
+        }
+      ],
+      "clouds": {"all": 12},
+      "wind": {"speed": 1.25, "deg": 45, "gust": 2.13},
+      "visibility": 10000,
+      "pop": 0,
+      "sys": {"pod": "d"},
+      "dt_txt": "2024-01-28 00:00:00"
+    },
+    {
+      "dt": 1706896800,
+      "main": {
+        "temp": 29.44,
+        "feels_like": 29.61,
+        "temp_min": 29.44,
+        "temp_max": 29.44,
+        "pressure": 1017,
+        "sea_level": 1017,
+        "grnd_level": 1016,
+        "humidity": 45,
+        "temp_kf": 0
+      },
+      "weather": [
+        {
+          "id": 802,
+          "main": "Clouds",
+          "description": "scattered clouds",
+          "icon": "50d"
+        }
+      ],
+      "clouds": {"all": 30},
+      "wind": {"speed": 1.69, "deg": 320, "gust": 1.85},
+      "visibility": 10000,
+      "pop": 0,
+      "sys": {"pod": "d"},
+      "dt_txt": "2024-01-28 03:00:00"
+    },
+    {
+      "dt": 1706983200,
+      "main": {
+        "temp": 33.88,
+        "feels_like": 34.07,
+        "temp_min": 33.88,
+        "temp_max": 33.88,
+        "pressure": 1013,
+        "sea_level": 1013,
+        "grnd_level": 1012,
+        "humidity": 35,
+        "temp_kf": 0
+      },
+      "weather": [
+        {
+          "id": 802,
+          "main": "Clouds",
+          "description": "scattered clouds",
+          "icon": "03n"
+        }
+      ],
+      "clouds": {"all": 50},
+      "wind": {"speed": 1.04, "deg": 297, "gust": 1.18},
+      "visibility": 10000,
+      "pop": 0,
+      "sys": {"pod": "d"},
+      "dt_txt": "2024-01-28 06:00:00"
+    },
+    {
+      "dt": 1707069600,
+      "main": {
+        "temp": 32.58,
+        "feels_like": 32.94,
+        "temp_min": 32.58,
+        "temp_max": 32.58,
+        "pressure": 1011,
+        "sea_level": 1011,
+        "grnd_level": 1010,
+        "humidity": 39,
+        "temp_kf": 0
+      },
+      "weather": [
+        {"id": 800, "main": "Clear", "description": "clear sky", "icon": "01n"}
+      ],
+      "clouds": {"all": 4},
+      "wind": {"speed": 4.75, "deg": 166, "gust": 3.01},
+      "visibility": 10000,
+      "pop": 0,
+      "sys": {"pod": "d"},
+      "dt_txt": "2024-01-28 09:00:00"
+    },
+  ],
+  "city": {
+    "id": 1566083,
+    "name": "Ho Chi Minh City",
+    "coord": {"lat": 10.7726, "lon": 106.6978},
+    "country": "VN",
+    "population": 1000000,
+    "timezone": 25200,
+    "sunrise": 1706311008,
+    "sunset": 1706352867
+  }
+};
+
 var openWeatherDemoHourly = {
   "cod": "200",
   "message": 0,
@@ -3437,10 +3761,10 @@ var openWeatherDemoHourly = {
     {
       "dt": 1661875200,
       "main": {
-        "temp": 22.85,
-        "feels_like": 22.87,
-        "temp_min": 23.19,
-        "temp_max": 25.09,
+        "temp": 26.85,
+        "feels_like": 26.87,
+        "temp_min": 24.19,
+        "temp_max": 27.09,
         "pressure": 1015,
         "sea_level": 1015,
         "grnd_level": 933,
@@ -3448,7 +3772,7 @@ var openWeatherDemoHourly = {
         "temp_kf": -1.9
       },
       "weather": [
-        {"id": 500, "main": "Rain", "description": "light rain", "icon": "10d"}
+        {"id": 500, "main": "Rain", "description": "light rain", "icon": "04n"}
       ],
       "clouds": {"all": 97},
       "wind": {"speed": 1.06, "deg": 66, "gust": 2.16},
@@ -3461,10 +3785,10 @@ var openWeatherDemoHourly = {
     {
       "dt": 1661878800,
       "main": {
-        "temp": 23.16,
-        "feels_like": 296.07,
-        "temp_min": 296.2,
-        "temp_max": 296.31,
+        "temp": 24.85,
+        "feels_like": 24.27,
+        "temp_min": 23.19,
+        "temp_max": 26.09,
         "pressure": 1015,
         "sea_level": 1015,
         "grnd_level": 932,
@@ -3472,7 +3796,7 @@ var openWeatherDemoHourly = {
         "temp_kf": 0.11
       },
       "weather": [
-        {"id": 500, "main": "Rain", "description": "light rain", "icon": "10d"}
+        {"id": 500, "main": "Rain", "description": "light rain", "icon": "10n"}
       ],
       "clouds": {"all": 95},
       "wind": {"speed": 1.58, "deg": 103, "gust": 3.52},
@@ -3485,10 +3809,10 @@ var openWeatherDemoHourly = {
     {
       "dt": 1661882400,
       "main": {
-        "temp": 21.79,
-        "feels_like": 294.74,
-        "temp_min": 292.84,
-        "temp_max": 294.94,
+        "temp": 25.85,
+        "feels_like": 25.87,
+        "temp_min": 23.19,
+        "temp_max": 26.09,
         "pressure": 1015,
         "sea_level": 1015,
         "grnd_level": 931,
@@ -3496,7 +3820,7 @@ var openWeatherDemoHourly = {
         "temp_kf": 2.1
       },
       "weather": [
-        {"id": 500, "main": "Rain", "description": "light rain", "icon": "10n"}
+        {"id": 500, "main": "Rain", "description": "light rain", "icon": "11n"}
       ],
       "clouds": {"all": 93},
       "wind": {"speed": 1.97, "deg": 157, "gust": 3.39},
@@ -3507,12 +3831,12 @@ var openWeatherDemoHourly = {
       "dt_txt": "2022-08-30 18:00:00"
     },
     {
-      "dt": 1662217200,
+      "dt": 1661886000,
       "main": {
-        "temp": 20.99,
-        "feels_like": 293.99,
-        "temp_min": 294.14,
-        "temp_max": 294.14,
+        "temp": 24.85,
+        "feels_like": 24.87,
+        "temp_min": 23.19,
+        "temp_max": 26.09,
         "pressure": 1014,
         "sea_level": 1014,
         "grnd_level": 931,
@@ -3524,7 +3848,7 @@ var openWeatherDemoHourly = {
           "id": 804,
           "main": "Clouds",
           "description": "overcast clouds",
-          "icon": "04d"
+          "icon": "03n"
         }
       ],
       "clouds": {"all": 100},

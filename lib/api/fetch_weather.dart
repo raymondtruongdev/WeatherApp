@@ -32,8 +32,8 @@ class FetchWeatherAPI {
     // var jsonDataDaily2 = jsonDecode(jsonstringDaily);
 
 // Using weather data from a json in demo file
-    var jsondataCurrent = openWeatherMapHoChiMinhCurrent;
-    var jsonDataDaily = openWeatherMapHoChiMinhForecast;
+    var jsondataCurrent = openWeatherMapDemoCurrent;
+    var jsonDataDaily = openWeatherDemoForecast;
     var jsonDataHourly = openWeatherDemoHourly;
 
     weatherData = WeatherData(

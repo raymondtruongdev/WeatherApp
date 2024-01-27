@@ -95,7 +95,8 @@ class HourlyDetails extends StatelessWidget {
       : super(key: key);
   String getTime(final timeStamp) {
     DateTime time = DateTime.fromMillisecondsSinceEpoch(timeStamp * 1000);
-    String x = DateFormat('jm').format(time);
+    // String x = DateFormat('jm').format(time);
+    final x = DateFormat('HH:mm').format(time);
     return x;
   }
 

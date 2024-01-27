@@ -17,8 +17,8 @@ class DailyDataForecast extends StatelessWidget {
 
   String getFormattedDate(final timestamp) {
     DateTime time = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
-    // final formattedDate = DateFormat('dd MMM yyyy').format(time);
-    final formattedDate = DateFormat('dd MMM yyyy HH:mm').format(time);
+    final formattedDate = DateFormat('dd MMM yyyy').format(time);
+    // final formattedDate = DateFormat('dd MMM yyyy HH:mm').format(time);
     return formattedDate;
   }
 
@@ -93,7 +93,7 @@ class DailyDataForecast extends StatelessWidget {
                             "lib/assets/weather/${weatherDataDaily.daily[index].weather![0].icon}.png"),
                       ),
                       Text(
-                          "${weatherDataDaily.daily[index].main!.tempMax!.round()}°/${weatherDataDaily.daily[index].main!.tempMin!.round()}")
+                          "${weatherDataDaily.daily[index].main!.tempMin!.round()}°/${weatherDataDaily.daily[index].main!.tempMax!.round()}°")
                     ],
                   )),
               Container(
