@@ -17,7 +17,8 @@ class DailyDataForecast extends StatelessWidget {
 
   String getFormattedDate(final timestamp) {
     DateTime time = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
-    final formattedDate = DateFormat('dd MMM yyyy').format(time);
+    // final formattedDate = DateFormat('dd MMM yyyy').format(time);
+    final formattedDate = DateFormat('dd MMM yyyy HH:mm').format(time);
     return formattedDate;
   }
 

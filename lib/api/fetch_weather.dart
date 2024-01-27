@@ -1,10 +1,14 @@
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:weather_app/demo_weather_data.dart';
 import 'package:weather_app/model/weather_data.dart';
 import 'package:weather_app/model/weather_data_current.dart';
 import 'package:weather_app/model/weather_data_daily.dart';
+import 'package:weather_app/model/weather_data_hourly.dart';
 import 'package:weather_app/utils/api_url.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
 
 class FetchWeatherAPI {
@@ -28,11 +32,14 @@ class FetchWeatherAPI {
     // var jsonDataDaily2 = jsonDecode(jsonstringDaily);
 
 // Using weather data from a json in demo file
-    var jsondataCurrent = data_hochiminh;
-    var jsonDataDaily = dataForcast_hochiminh;
+    var jsondataCurrent = openWeatherMapHoChiMinhCurrent;
+    var jsonDataDaily = openWeatherMapHoChiMinhForecast;
+    var jsonDataHourly = openWeatherDemoHourly;
 
-    weatherData = WeatherData(WeatherDataCurrent.fromJson(jsondataCurrent),
-        WeatherDataDaily.fromJson(jsonDataDaily));
+    weatherData = WeatherData(
+        WeatherDataCurrent.fromJson(jsondataCurrent),
+        WeatherDataDaily.fromJson(jsonDataDaily),
+        WeatherDataHourly.fromJson(jsonDataHourly));
 
     return weatherData!;
   }
