@@ -67,6 +67,8 @@ flutter:
   assets:
     - lib/assets/icons/
     - lib/assets/weather/
+    - lib/assets/weatherV2/64x64/day/
+    - lib/assets/weatherV2/64x64/night/
 
   # To add assets to your application, add an assets section, like this:
   # assets:
