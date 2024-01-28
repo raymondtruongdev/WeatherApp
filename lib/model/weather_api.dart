@@ -72,7 +72,7 @@ class Location {
 class Current {
   int? lastUpdatedEpoch;
   String? lastUpdated;
-  int? tempC;
+  double? tempC;
   double? tempF;
   int? isDay;
   Condition? condition;
@@ -80,17 +80,17 @@ class Current {
   double? windKph;
   int? windDegree;
   String? windDir;
-  int? pressureMb;
+  double? pressureMb;
   double? pressureIn;
-  int? precipMm;
-  int? precipIn;
-  int? humidity;
+  double? precipMm;
+  double? precipIn;
+  double? humidity;
   int? cloud;
   double? feelslikeC;
   double? feelslikeF;
-  int? visKm;
-  int? visMiles;
-  int? uv;
+  double? visKm;
+  double? visMiles;
+  double? uv;
   double? gustMph;
   double? gustKph;
   AirQuality? airQuality;
@@ -125,7 +125,7 @@ class Current {
   factory Current.fromJson(Map<String, dynamic> json) => Current(
         lastUpdatedEpoch: json['last_updated_epoch'] as int?,
         lastUpdated: json['last_updated'] as String?,
-        tempC: json['temp_c'] as int?,
+        tempC: (json['temp_c'] as num?)?.toDouble(),
         tempF: (json['temp_f'] as num?)?.toDouble(),
         isDay: json['is_day'] as int?,
         condition: json['condition'] == null
@@ -135,17 +135,17 @@ class Current {
         windKph: (json['wind_kph'] as num?)?.toDouble(),
         windDegree: json['wind_degree'] as int?,
         windDir: json['wind_dir'] as String?,
-        pressureMb: json['pressure_mb'] as int?,
+        pressureMb: (json['pressure_mb'] as num?)?.toDouble(),
         pressureIn: (json['pressure_in'] as num?)?.toDouble(),
-        precipMm: json['precip_mm'] as int?,
-        precipIn: json['precip_in'] as int?,
-        humidity: json['humidity'] as int?,
+        precipMm: (json['precip_mm'] as num?)?.toDouble(),
+        precipIn: (json['precip_in'] as num?)?.toDouble(),
+        humidity: (json['humidity'] as num?)?.toDouble(),
         cloud: json['cloud'] as int?,
         feelslikeC: (json['feelslike_c'] as num?)?.toDouble(),
         feelslikeF: (json['feelslike_f'] as num?)?.toDouble(),
-        visKm: json['vis_km'] as int?,
-        visMiles: json['vis_miles'] as int?,
-        uv: json['uv'] as int?,
+        visKm: (json['vis_km'] as num?)?.toDouble(),
+        visMiles: (json['vis_miles'] as num?)?.toDouble(),
+        uv: (json['uv'] as num?)?.toDouble(),
         gustMph: (json['gust_mph'] as num?)?.toDouble(),
         gustKph: (json['gust_kph'] as num?)?.toDouble(),
         airQuality: json['air_quality'] == null
@@ -390,18 +390,18 @@ class Day {
   double? avgtempF;
   double? maxwindMph;
   double? maxwindKph;
-  int? totalprecipMm;
-  int? totalprecipIn;
-  int? totalsnowCm;
-  int? avgvisKm;
-  int? avgvisMiles;
+  double? totalprecipMm;
+  double? totalprecipIn;
+  double? totalsnowCm;
+  double? avgvisKm;
+  double? avgvisMiles;
   int? avghumidity;
   int? dailyWillItRain;
   int? dailyChanceOfRain;
   int? dailyWillItSnow;
   int? dailyChanceOfSnow;
   Condition? condition;
-  int? uv;
+  double? uv;
   AirQuality? airQuality;
 
   Day({
@@ -437,11 +437,11 @@ class Day {
         avgtempF: (json['avgtemp_f'] as num?)?.toDouble(),
         maxwindMph: (json['maxwind_mph'] as num?)?.toDouble(),
         maxwindKph: (json['maxwind_kph'] as num?)?.toDouble(),
-        totalprecipMm: json['totalprecip_mm'] as int?,
-        totalprecipIn: json['totalprecip_in'] as int?,
-        totalsnowCm: json['totalsnow_cm'] as int?,
-        avgvisKm: json['avgvis_km'] as int?,
-        avgvisMiles: json['avgvis_miles'] as int?,
+        totalprecipMm: (json['totalprecip_mm'] as num?)?.toDouble(),
+        totalprecipIn: (json['totalprecip_in'] as num?)?.toDouble(),
+        totalsnowCm: (json['totalsnow_cm'] as num?)?.toDouble(),
+        avgvisKm: (json['avgvis_km'] as num?)?.toDouble(),
+        avgvisMiles: (json['avgvis_miles'] as num?)?.toDouble(),
         avghumidity: json['avghumidity'] as int?,
         dailyWillItRain: json['daily_will_it_rain'] as int?,
         dailyChanceOfRain: json['daily_chance_of_rain'] as int?,
@@ -450,7 +450,7 @@ class Day {
         condition: json['condition'] == null
             ? null
             : Condition.fromJson(json['condition'] as Map<String, dynamic>),
-        uv: json['uv'] as int?,
+        uv: (json['uv'] as num?)?.toDouble(),
         airQuality: json['air_quality'] == null
             ? null
             : AirQuality.fromJson(json['air_quality'] as Map<String, dynamic>),
@@ -492,11 +492,11 @@ class Hour {
   double? windKph;
   int? windDegree;
   String? windDir;
-  int? pressureMb;
+  double? pressureMb;
   double? pressureIn;
-  int? precipMm;
-  int? precipIn;
-  int? snowCm;
+  double? precipMm;
+  double? precipIn;
+  double? snowCm;
   int? humidity;
   int? cloud;
   double? feelslikeC;
@@ -511,14 +511,14 @@ class Hour {
   int? chanceOfRain;
   int? willItSnow;
   int? chanceOfSnow;
-  int? visKm;
-  int? visMiles;
+  double? visKm;
+  double? visMiles;
   double? gustMph;
   double? gustKph;
-  int? uv;
+  double? uv;
   AirQualityHour? airQuality;
-  int? shortRad;
-  int? diffRad;
+  double? shortRad;
+  double? diffRad;
 
   Hour({
     this.timeEpoch,
@@ -573,11 +573,11 @@ class Hour {
         windKph: (json['wind_kph'] as num?)?.toDouble(),
         windDegree: json['wind_degree'] as int?,
         windDir: json['wind_dir'] as String?,
-        pressureMb: json['pressure_mb'] as int?,
+        pressureMb: (json['pressure_mb'] as num?)?.toDouble(),
         pressureIn: (json['pressure_in'] as num?)?.toDouble(),
-        precipMm: json['precip_mm'] as int?,
-        precipIn: json['precip_in'] as int?,
-        snowCm: json['snow_cm'] as int?,
+        precipMm: (json['precip_mm'] as num?)?.toDouble(),
+        precipIn: (json['precip_in'] as num?)?.toDouble(),
+        snowCm: (json['snow_cm'] as num?)?.toDouble(),
         humidity: json['humidity'] as int?,
         cloud: json['cloud'] as int?,
         feelslikeC: (json['feelslike_c'] as num?)?.toDouble(),
@@ -592,22 +592,17 @@ class Hour {
         chanceOfRain: json['chance_of_rain'] as int?,
         willItSnow: json['will_it_snow'] as int?,
         chanceOfSnow: json['chance_of_snow'] as int?,
-        visKm: json['vis_km'] as int?,
-        visMiles: json['vis_miles'] as int?,
+        visKm: (json['vis_km'] as num?)?.toDouble(),
+        visMiles: (json['vis_miles'] as num?)?.toDouble(),
         gustMph: (json['gust_mph'] as num?)?.toDouble(),
         gustKph: (json['gust_kph'] as num?)?.toDouble(),
-        uv: json['uv'] as int?,
-        // airQuality: json['air_quality'] == null
-        //     ? null
-        //     : AirQualityHour.fromJson(
-        //         json['air_quality'] as Map<String, dynamic>),
+        uv: (json['uv'] as num?)?.toDouble(),
         airQuality: json['air_quality'] == null
             ? null
             : AirQualityHour.fromJson(
                 json['air_quality'] as Map<dynamic, dynamic>),
-
-        shortRad: json['short_rad'] as int?,
-        diffRad: json['diff_rad'] as int?,
+        shortRad: (json['short_rad'] as num?)?.toDouble(),
+        diffRad: (json['diff_rad'] as num?)?.toDouble(),
       );
 
   Map<String, dynamic> toJson() => {
