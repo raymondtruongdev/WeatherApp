@@ -20,26 +20,46 @@ class FetchWeatherAPI {
 
   // procecssing the data from response -> to json
   Future<Tuple2<WeatherData?, WeatherDataV2?>> processData(lat, lon) async {
-    // // Query weather data from the server
-    // var responseCurrent =
-    //     await http.get(Uri.parse(apiURL(lat, lon, 'current')));
-    // var jsonstringCurrent = responseCurrent.body;
-    // print('JSON String Current: $jsonstringCurrent');
-    // // Decode the JSON string to Json object
-    // var jsondataCurrent = jsonDecode(jsonstringCurrent);
+    dynamic jsonDataWeatherApi;
+    dynamic jsondataCurrent;
+    dynamic jsonDataDaily;
+    dynamic jsonDataHourly;
 
-    // Query weather data from the server
-    // var responseDaily = await http.get(Uri.parse(apiURL(lat, lon, 'forecast')));
-    // var jsonstringDaily = responseDaily.body;
-    // print('JSON String Daily: $jsonstringDaily');
-    // // Decode the JSON string to Json object
-    // var jsonDataDaily2 = jsonDecode(jsonstringDaily);
+    String onlineMode = 'online';
 
-// Using weather data from a json in demo file
-    var jsondataCurrent = openWeatherMapDemoCurrent;
-    var jsonDataDaily = openWeatherDemoForecast;
-    var jsonDataHourly = openWeatherDemoHourly;
-    var jsonDataWeatherApi = weatherApiHoChiMinhForecast;
+    switch (onlineMode) {
+      case 'online':
+        // // Query weather data from the server OpenWeather
+        // var responseCurrent =
+        //     await http.get(Uri.parse(apiURL(lat, lon, 'current')));
+        // var jsonstringCurrent = responseCurrent.body;
+        // print('JSON OpenWeather Current: $jsonstringCurrent');
+        // jsondataCurrent = jsonDecode(jsonstringCurrent);
+        // var responseDaily =
+        //     await http.get(Uri.parse(apiURL(lat, lon, 'forecast')));
+        // var jsonstringDaily = responseDaily.body;
+        // print('JSON OpenWeather Daily: $jsonstringDaily');
+        // jsonDataDaily = jsonDecode(jsonstringDaily);
+
+        jsondataCurrent = openWeatherMapDemoCurrent;
+        jsonDataDaily = openWeatherDemoForecast;
+        jsonDataHourly = openWeatherDemoHourly;
+
+        // Query weather data from the server WeatherApi
+        var response = await http.get(Uri.parse(apiURLWeatherApi(lat, lon)));
+        var jsonstring = response.body;
+        print('JSON WeatherApi : $jsonstring');
+        jsonDataWeatherApi = jsonDecode(jsonstring);
+
+        break;
+
+      default: // Using the demo data
+        // Using weather data from a json in demo file
+        jsondataCurrent = openWeatherMapDemoCurrent;
+        jsonDataDaily = openWeatherDemoForecast;
+        jsonDataHourly = openWeatherDemoHourly;
+        jsonDataWeatherApi = weatherApiHoChiMinhForecast;
+    }
 
     weatherData = WeatherData(
         WeatherDataCurrent.fromJson(jsondataCurrent),

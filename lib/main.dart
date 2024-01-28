@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
+import 'package:weather_app/screens/home_screen.dart';
 import 'package:weather_app/screens/home_screen_v2.dart';
 
 void main(List<String> args) {

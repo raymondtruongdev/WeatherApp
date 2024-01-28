@@ -20,6 +20,16 @@ String apiURL(var lat, var lon, var dataType) {
   return url;
 }
 
+String apiURLWeatherApi(var lat, var lon) {
+  String url;
+
+  url =
+      "https://api.weatherapi.com/v1/forecast.json?key=$apiKeyWeatherApi&q=$lat,$lon&days=5&aqi=yes&alerts=no";
+
+  print(url);
+  return url;
+}
+
 // With free account you can only get current data + forecast data for 5 days / 3 hour and
 // https://openweathermap.org/current
 
