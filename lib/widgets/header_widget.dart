@@ -36,15 +36,8 @@ class _HeaderWidgetState extends State<HeaderWidget> {
     Placemark place = placemark[0];
 
     setState(() {
-      // city = place.locality!;
-      print(place.locality!);
-
       city =
           globalController.getData().weatherCurrent?.weatherCurrent.name ?? '';
-
-      print(globalController.getLattitude().value);
-      print(globalController.getLongitude().value);
-      print(city);
     });
   }
 

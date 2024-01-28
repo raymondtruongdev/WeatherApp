@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:weather_app/controller/global_controller.dart';
 import 'package:weather_app/model/weather_data_v2.dart';
+import 'package:timezone/timezone.dart' as tz;
+import 'package:timezone/data/latest.dart' as tz;
 
 class HeaderWidgetV2 extends StatefulWidget {
   final WeatherDataV2 weather;
@@ -33,8 +35,8 @@ class _HeaderWidgetV2State extends State<HeaderWidgetV2> {
 
   String getFormattedDate(final timestamp) {
     DateTime time = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
-    final formattedDate = DateFormat('dd MMM yyyy - HH:mm').format(time);
-    // final formattedDate = DateFormat('dd MMM yyyy HH:mm').format(time);
+    var dateLocal = time.toUtc();
+    final formattedDate = DateFormat('dd MMM yyyy - HH:mm').format(dateLocal);
     return formattedDate;
   }
 
@@ -44,21 +46,31 @@ class _HeaderWidgetV2State extends State<HeaderWidgetV2> {
     Placemark place = placemark[0];
     String cityPlace = place.locality!;
 
+    tz.initializeTimeZones();
+
+    String tzId = globalController.getDataV2().weather?.location?.tzId ?? "";
+    int offsetTime = 0;
+    try {
+      var timezoneObj = tz.getLocation(tzId);
+      offsetTime = (timezoneObj.currentTimeZone.offset / 1000).round();
+    } catch (e) {
+      offsetTime = 0;
+    }
+
+    int localtimeEpoch =
+        globalController.getDataV2().weather?.location?.localtimeEpoch ?? 0;
+
     setState(() {
       // Get City from Weather data
+      country = globalController.getDataV2().weather?.location?.country ?? '';
       city = globalController.getDataV2().weather?.location?.name ??
           'Error Network';
+      // Get localtime in weather data
+      String localtimeStrOrg =
+          globalController.getDataV2().weather?.location?.localtime ?? "";
 
-      localtimeStr =
-          globalController.getDataV2().weather?.location?.localtime ?? '';
-
-      country = globalController.getDataV2().weather?.location?.country ?? '';
-
-      localtimeEpoch =
-          globalController.getDataV2().weather?.location?.localtimeEpoch ??
-              (DateTime.now().millisecondsSinceEpoch / 1000).round();
-
-      localtimeStr = getFormattedDate(localtimeEpoch);
+      // Reformat localtime to dd MMM yyyy - HH:mm
+      localtimeStr = getFormattedDate(localtimeEpoch + offsetTime);
     });
   }
 

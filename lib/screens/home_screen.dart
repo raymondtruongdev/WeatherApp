@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/instance_manager.dart';
-import 'package:get/state_manager.dart';
 import 'package:weather_app/controller/global_controller.dart';
 import 'package:weather_app/utils/custom_colors.dart';
 import 'package:weather_app/widgets/comfort_level.dart';

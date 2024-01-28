@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:get/state_manager.dart';
 import 'package:intl/intl.dart';
 import 'package:weather_app/controller/global_controller.dart';
 import 'package:weather_app/model/weather_data_v2.dart';
 import 'package:weather_app/utils/custom_colors.dart';
 import 'package:get/get.dart';
+import 'package:timezone/timezone.dart' as tz;
+import 'package:timezone/data/latest.dart' as tz;
 
 // ignore: must_be_immutable
 class HourlyDataWidgetV2 extends StatelessWidget {
@@ -35,6 +36,9 @@ class HourlyDataWidgetV2 extends StatelessWidget {
     );
   }
 
+  final GlobalController globalController =
+      Get.put(GlobalController(), permanent: true);
+
   Widget hourlyList() {
     List<dynamic> weatherHourly;
     try {
@@ -53,6 +57,16 @@ class HourlyDataWidgetV2 extends StatelessWidget {
           weatherHourly2Day.sublist(hourCurrent + 1, weatherHourly2Day.length);
     } catch (e) {
       weatherHourly = [];
+    }
+
+    tz.initializeTimeZones();
+    String tzId = globalController.getDataV2().weather?.location?.tzId ?? "";
+    int offsetTime = 0;
+    try {
+      var timezoneObj = tz.getLocation(tzId);
+      offsetTime = (timezoneObj.currentTimeZone.offset / 1000).round();
+    } catch (e) {
+      offsetTime = 0;
     }
 
     return Container(
@@ -89,6 +103,7 @@ class HourlyDataWidgetV2 extends StatelessWidget {
                   cardIndex: cardIndex.toInt(),
                   temp: weatherHourly[index].tempC.toInt(),
                   timeStamp: weatherHourly[index].timeEpoch.toInt(),
+                  offsetTime: offsetTime,
                   weatherIcon:
                       //  "lib/assets/weatherV2/64x64/day/113.png",
                       getPathIconLocal(
@@ -108,6 +123,7 @@ class HourlyDetails extends StatelessWidget {
   int index;
   int cardIndex;
   int timeStamp;
+  int offsetTime;
   String weatherIcon;
 
   HourlyDetails(
@@ -116,13 +132,16 @@ class HourlyDetails extends StatelessWidget {
       required this.index,
       required this.timeStamp,
       required this.temp,
+      required this.offsetTime,
       required this.weatherIcon})
       : super(key: key);
+
   String getTime(final timeStamp) {
-    DateTime time = DateTime.fromMillisecondsSinceEpoch(timeStamp * 1000);
-    // String x = DateFormat('jm').format(time);
-    final x = DateFormat('HH:mm').format(time);
-    return x;
+    DateTime time =
+        DateTime.fromMillisecondsSinceEpoch((timeStamp + offsetTime) * 1000);
+    var dateLocal = time.toUtc();
+    final formattedDate = DateFormat('HH:mm').format(dateLocal);
+    return formattedDate;
   }
 
   @override

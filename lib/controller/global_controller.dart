@@ -42,6 +42,8 @@ class GlobalController extends GetxController {
     bool isSeviceEnable;
     LocationPermission locationPermission;
 
+    _isLoading.value = true;
+
     isSeviceEnable = await Geolocator.isLocationServiceEnabled();
     if (!isSeviceEnable) {
       return Future.error("Location not enable");
@@ -67,6 +69,10 @@ class GlobalController extends GetxController {
       // update our lattitude and longitude
       _latitude.value = value.latitude;
       _longitude.value = value.longitude;
+
+      print('latitude: ${value.latitude}');
+      print('longitude: ${value.longitude}');
+
       // calling our weather api
       return FetchWeatherAPI()
           .processData(value.latitude, value.longitude)

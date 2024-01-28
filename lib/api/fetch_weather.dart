@@ -1,7 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
-
-import 'package:flutter/foundation.dart';
 import 'package:tuple/tuple.dart';
 import 'package:weather_app/demo_weather_data.dart';
 import 'package:weather_app/model/weather_api.dart';
@@ -11,7 +8,6 @@ import 'package:weather_app/model/weather_data_daily.dart';
 import 'package:weather_app/model/weather_data_hourly.dart';
 import 'package:weather_app/model/weather_data_v2.dart';
 import 'package:weather_app/utils/api_url.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
 
 class FetchWeatherAPI {
@@ -58,7 +54,7 @@ class FetchWeatherAPI {
         jsondataCurrent = openWeatherMapDemoCurrent;
         jsonDataDaily = openWeatherDemoForecast;
         jsonDataHourly = openWeatherDemoHourly;
-        jsonDataWeatherApi = weatherApiHoChiMinhForecast;
+        jsonDataWeatherApi = tokyo;
     }
 
     weatherData = WeatherData(
