@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
+
 import 'package:weather_app/controller/global_controller.dart';
 import 'package:weather_app/screens/home_screen_v2.dart';
 
@@ -12,8 +12,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      title: 'Flutter Refresh',
       home: RefreshPage(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -31,9 +31,7 @@ class _RefreshPageState extends State<RefreshPage> {
   Future<void> fetchData() async {
     // Simulate fetching new data
     // await Future.delayed(const Duration(seconds: 2));
-
     final GlobalController globalController1 = Get.find<GlobalController>();
-    // await globalController1.getLocation();
     print('updata new data ....');
     setState(() {
       globalController1.getLocation();
@@ -47,7 +45,7 @@ class _RefreshPageState extends State<RefreshPage> {
 
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Pull to Update'),
+          title: const Text('Weather-Mijo Connected'),
         ),
         body: RefreshIndicator(
           onRefresh: fetchData,

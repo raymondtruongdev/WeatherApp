@@ -36,7 +36,9 @@ class _HeaderWidgetV2State extends State<HeaderWidgetV2> {
   String getFormattedDate(final timestamp) {
     DateTime time = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
     var dateLocal = time.toUtc();
-    final formattedDate = DateFormat('dd MMM yyyy - HH:mm').format(dateLocal);
+    final formattedDate =
+        'Updated on ${DateFormat('dd MMM yyyy').format(dateLocal)}, at ${DateFormat('HH:mm').format(dateLocal)}';
+    // DateFormat('dd MMM yyyy - HH:mm').format(dateLocal)
     return formattedDate;
   }
 
