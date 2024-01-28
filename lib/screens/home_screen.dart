@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/state_manager.dart';
 import 'package:weather_app/controller/global_controller.dart';
+import 'package:weather_app/utils/custom_colors.dart';
+import 'package:weather_app/widgets/comfort_level.dart';
 import 'package:weather_app/widgets/current_data_widget.dart';
 import 'package:weather_app/widgets/daily_data_forecast.dart';
 import 'package:weather_app/widgets/header_widget.dart';
@@ -49,6 +51,16 @@ class _HomeScreenState extends State<HomeScreen> {
                     weatherDataDaily:
                         globalController.getData().getDailyWeather(),
                   ),
+                  Container(
+                    height: 1,
+                    color: CustomColors.dividerLine,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  ComfortLevel(
+                      weatherDataCurrent:
+                          globalController.getData().getCurrentWeather())
                 ],
               ),
       )),

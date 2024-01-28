@@ -3441,7 +3441,8 @@ var openWeatherMapDemoCurrent = {
     "temp_min": 25.27,
     "temp_max": 27.27,
     "pressure": 1015,
-    "humidity": 43
+    "humidity": 43,
+    "uvIndex": 7.0,
   },
   "visibility": 10000,
   "wind": {"speed": 1.54, "deg": 0},
@@ -3457,7 +3458,7 @@ var openWeatherMapDemoCurrent = {
   "timezone": 25200,
   "id": 1566083,
   "name": "Ho Chi Minh City",
-  "cod": 200
+  "cod": 200,
 };
 
 var openWeatherDemoForecast = {

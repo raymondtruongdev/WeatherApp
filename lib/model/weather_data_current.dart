@@ -20,6 +20,7 @@ class Main {
   int? dt;
   int? timezone;
   Sys? sys;
+  double? uvIndex;
 
   Main({
     this.temp,
@@ -35,6 +36,7 @@ class Main {
     this.dt,
     this.timezone,
     this.sys,
+    this.uvIndex,
   });
 
   factory Main.fromJson(Map<String, dynamic> json) => Main(
@@ -53,6 +55,7 @@ class Main {
         name: json['name'] as String?,
         dt: json['dt'] as int?,
         timezone: json['timezone'] as int?,
+        uvIndex: (json['main']['uvIndex'] as num?)?.toDouble(),
       );
 
   Map<String, dynamic> toJson() => {
