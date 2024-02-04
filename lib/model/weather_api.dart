@@ -25,6 +25,73 @@ class Weatherapi {
       };
 }
 
+// Extract Weather Data Current
+
+class WeatherApiDataParser {
+  Location? location;
+  List<ForecastDayCustom>? day;
+  Current? current;
+  List<Hour>? hour;
+
+  // Weatherapi({this.location, this.current, this.forecast});
+  WeatherApiDataParser({this.location, this.day, this.current});
+
+  factory WeatherApiDataParser.fromJson(Map<String, dynamic> json) =>
+      WeatherApiDataParser(
+        location: json['location'] == null
+            ? null
+            : Location.fromJson(json['location'] as Map<String, dynamic>),
+        day: (json['forecast']['forecastday'] as List<dynamic>?)
+            ?.map((e) => ForecastDayCustom.fromJson(e as Map<String, dynamic>))
+            .toList(),
+        current: json['current'] == null
+            ? null
+            : Current.fromJson(json['current'] as Map<String, dynamic>),
+      );
+
+  Map<String, dynamic> toJson() => {
+        'location': location?.toJson(),
+        'day': day?.map((e) => e.toJson()).toList(),
+        'current': current?.toJson(),
+      };
+}
+
+class ForecastDayCustom {
+  String? date;
+  int? dateEpoch;
+  Astro? astro;
+  Day? day;
+  List<Hour>? hour;
+
+  // Weatherapi({this.location, this.current, this.forecast});
+  ForecastDayCustom(
+      {this.date, this.dateEpoch, this.astro, this.day, this.hour});
+
+  factory ForecastDayCustom.fromJson(Map<String, dynamic> json) =>
+      ForecastDayCustom(
+        date: json['date'] as String?,
+        dateEpoch: json['date_epoch'] as int?,
+        astro: json['astro'] == null
+            ? null
+            : Astro.fromJson(json['astro'] as Map<String, dynamic>),
+        day: json['day'] == null
+            ? null
+            : Day.fromJson(json['day'] as Map<String, dynamic>),
+        hour: (json['hour'] as List<dynamic>?)
+            ?.map((e) => Hour.fromJson(e as Map<String, dynamic>))
+            .toList(),
+      );
+
+  Map<String, dynamic> toJson() => {
+        'date': date,
+        'date_epoch': dateEpoch,
+        'astro': astro?.toJson(),
+        'day': day?.toJson(),
+        'hour': hour?.map((e) => e.toJson()).toList(),
+      };
+}
+
+//===========================================
 class Location {
   String? name;
   String? region;

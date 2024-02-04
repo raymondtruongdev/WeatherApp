@@ -7,3 +7,19 @@ class WeatherDataV2 {
 
   Weatherapi getWeather() => weather!;
 }
+
+class WeatherApiData {
+  final WeatherApiDataParser? data;
+  late List<List<Hour>> hour;
+
+  WeatherApiData([this.data]) {
+    hour = [];
+    data?.day?.forEach((element) {
+      try {
+        hour.add([...element.hour!]);
+      } catch (e) {
+        print('can not convert');
+      }
+    });
+  }
+}

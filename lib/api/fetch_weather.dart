@@ -21,7 +21,7 @@ class FetchWeatherAPI {
     dynamic jsonDataDaily;
     dynamic jsonDataHourly;
 
-    String onlineMode = 'online';
+    String onlineMode = 'offline';
 
     switch (onlineMode) {
       case 'online':
@@ -54,7 +54,7 @@ class FetchWeatherAPI {
         jsondataCurrent = openWeatherMapDemoCurrent;
         jsonDataDaily = openWeatherDemoForecast;
         jsonDataHourly = openWeatherDemoHourly;
-        jsonDataWeatherApi = tokyo;
+        jsonDataWeatherApi = hochiminh;
     }
 
     weatherData = WeatherData(
@@ -63,6 +63,9 @@ class FetchWeatherAPI {
         WeatherDataHourly.fromJson(jsonDataHourly));
 
     weatherDataV2 = WeatherDataV2(Weatherapi.fromJson(jsonDataWeatherApi));
+
+    var weatherApiData =
+        WeatherApiData(WeatherApiDataParser.fromJson(jsonDataWeatherApi));
 
     return Tuple2(weatherData, weatherDataV2);
   }
