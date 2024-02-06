@@ -52,11 +52,17 @@ class _RefreshPageState extends State<RefreshPage> {
           child: Obx(
             () => globalController.checkLoading().isTrue
                 ? Center(
-                    child: Container(
-                    color: Colors.white,
-                  )
-                    //  CircularProgressIndicator(),
-                    )
+                    child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        "lib/assets/icons/clouds.png",
+                        height: 200,
+                        width: 200,
+                      ),
+                      const CircularProgressIndicator()
+                    ],
+                  ))
                 : const HomeScreenV2(),
           ),
         ));
