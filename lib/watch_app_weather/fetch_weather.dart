@@ -14,7 +14,7 @@ class FetchWeather {
   Future<WeatherApiData?> processData(lat, lon) async {
     dynamic jsonDataWeatherApi;
 
-    String onlineMode = 'offline';
+    String onlineMode = 'online';
 
     switch (onlineMode) {
       case 'online':
@@ -28,8 +28,8 @@ class FetchWeather {
         break;
 
       default: // Using the demo data
-        // Using weather data from a json in demo file
-        jsonDataWeatherApi = hochiminh;
+      // Using weather data from a json in demo file
+      // jsonDataWeatherApi = hochiminh;
     }
 
     weatherApiData =
