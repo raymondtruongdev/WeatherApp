@@ -13,6 +13,7 @@ class GlobalController extends GetxController {
   final RxDouble _longitude = 0.0.obs;
   final RxInt _currentIndex = 0.obs;
   final RxInt _cityIndex = 0.obs;
+  double _scaleRatio = 0.0;
 
   RxBool checkLoading() => _isLoading;
   RxBool checkTimeout() => _isTimeout;
@@ -20,6 +21,7 @@ class GlobalController extends GetxController {
   RxDouble getLongitude() => _longitude;
   RxInt getIndex() => _currentIndex;
   RxInt getCityIndex() => _cityIndex;
+  double getScaleRatio() => _scaleRatio;
 
   setCityIndex(int value) {
     _cityIndex.value = value;
@@ -45,6 +47,10 @@ class GlobalController extends GetxController {
     // If 0 <= widthScreenDevice <= maxScreen : _watchSize = widthScreenDevice;
     double maxScreen = 1080.0; // 384.0;
     _watchSize.value = widthScreenDevice.clamp(0, maxScreen);
+
+    double defaultWatchSize = 390;
+
+    _scaleRatio = _watchSize.toDouble() / defaultWatchSize;
   }
 
   @override
@@ -59,11 +65,11 @@ class GlobalController extends GetxController {
   }
 
   getLocation() async {
-    if (_cityIndex == 0) {
+    if (_cityIndex.toInt() == 0) {
       try {
         getLocationGoogleService();
       } catch (e) {
-        print('GPS error');
+        // print('GPS error');
         getLocationWifi();
       }
     } else {
@@ -115,8 +121,8 @@ class GlobalController extends GetxController {
       _latitude.value = value.latitude;
       _longitude.value = value.longitude;
 
-      print('latitude: ${value.latitude}');
-      print('longitude: ${value.longitude}');
+      // print('latitude: ${value.latitude}');
+      // print('longitude: ${value.longitude}');
 
       // calling our weather api
       return FetchWeather()

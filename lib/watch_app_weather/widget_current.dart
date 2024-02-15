@@ -29,6 +29,8 @@ class WidgetCurrent extends StatelessWidget {
     final String pathImage = getPathIconLocal(
         globalController.getData().data?.current?.condition?.icon ?? '');
 
+    double scaleRatio = globalController.getScaleRatio();
+
     return Flex(direction: Axis.horizontal, children: [
       Flexible(
           flex: 1,
@@ -39,12 +41,12 @@ class WidgetCurrent extends StatelessWidget {
                 flex: 1,
                 child: Container(
                   alignment: Alignment.bottomRight,
-                  padding: const EdgeInsets.only(right: 15),
+                  padding: EdgeInsets.only(right: 15 * scaleRatio),
                   child: Text(
                     '${tempMax.toStringAsFixed(0)}°',
-                    style: const TextStyle(
+                    style: TextStyle(
                         fontFamily: 'roboto',
-                        fontSize: 25,
+                        fontSize: 25 * scaleRatio,
                         color: Colors.white,
                         fontWeight: FontWeight.bold),
                   ),
@@ -55,14 +57,14 @@ class WidgetCurrent extends StatelessWidget {
                 child: Container(
                     height: double.infinity,
                     alignment: Alignment.centerRight,
-                    padding: const EdgeInsets.only(right: 5),
+                    padding: EdgeInsets.only(right: 5 * scaleRatio),
                     child: FittedBox(
                       fit: BoxFit.cover,
                       child: Text(
                         '${tempCurrent.toStringAsFixed(0)}°',
-                        style: const TextStyle(
+                        style: TextStyle(
                             fontFamily: 'roboto',
-                            fontSize: 70,
+                            fontSize: 70 * scaleRatio,
                             height: 0,
                             color: Colors.white,
                             fontWeight: FontWeight.bold),
@@ -73,12 +75,12 @@ class WidgetCurrent extends StatelessWidget {
                 flex: 1,
                 child: Container(
                     alignment: Alignment.topRight,
-                    padding: const EdgeInsets.only(right: 15),
+                    padding: EdgeInsets.only(right: 15 * scaleRatio),
                     child: Text(
                       '${tempMin.toStringAsFixed(0)}°',
-                      style: const TextStyle(
+                      style: TextStyle(
                           fontFamily: 'roboto',
-                          fontSize: 25,
+                          fontSize: 25 * scaleRatio,
                           color: Colors.white,
                           fontWeight: FontWeight.bold),
                     )),
@@ -90,7 +92,7 @@ class WidgetCurrent extends StatelessWidget {
         child: Container(
           // color: Colors.yellow,
           alignment: Alignment.centerLeft,
-          padding: const EdgeInsets.only(left: 15),
+          padding: EdgeInsets.only(left: 15 * scaleRatio),
           child: SizedBox(
             height: double.infinity,
             // "lib/assets/weatherV2/64x64/day/113.png",

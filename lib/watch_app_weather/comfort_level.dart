@@ -14,6 +14,7 @@ class ComfortLevel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     WeatherApiData weather = globalController.getData();
+    double scaleRatio = globalController.getScaleRatio();
     return Column(
       children: [
         Container(
@@ -24,33 +25,35 @@ class ComfortLevel extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: 200,
+          height: 200 * scaleRatio,
           child: Column(
             children: [
               Center(
                 child: SleekCircularSlider(
                   min: 0,
-                  max: 100,
+                  max: 100 * scaleRatio,
                   initialValue:
                       weather.data?.current?.humidity?.toDouble() ?? 0,
                   appearance: CircularSliderAppearance(
                       customWidths: CustomSliderWidths(
-                          handlerSize: 0, trackWidth: 12, progressBarWidth: 12),
+                          handlerSize: 0,
+                          trackWidth: 12 * scaleRatio,
+                          progressBarWidth: 12 * scaleRatio),
                       infoProperties: InfoProperties(
                         bottomLabelText: "Humidity",
-                        bottomLabelStyle: const TextStyle(
-                            letterSpacing: 0.1,
-                            fontSize: 16,
-                            height: 1.5,
+                        bottomLabelStyle: TextStyle(
+                            letterSpacing: 0.1 * scaleRatio,
+                            fontSize: 16 * scaleRatio,
+                            height: 1.5 * scaleRatio,
                             color: Colors.white),
-                        mainLabelStyle: const TextStyle(
+                        mainLabelStyle: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 30,
-                            height: 1.5,
+                            fontSize: 30 * scaleRatio,
+                            height: 1.5 * scaleRatio,
                             color: Colors.white),
                       ),
                       animationEnabled: true,
-                      size: 140,
+                      size: 140 * scaleRatio,
                       customColors: CustomSliderColors(
                           hideShadow: true,
                           trackColor:
@@ -65,44 +68,44 @@ class ComfortLevel extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                width: 200,
+                width: 200 * scaleRatio,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     RichText(
                       text: TextSpan(children: [
-                        const TextSpan(
+                        TextSpan(
                             text: "Feels Like ",
                             style: TextStyle(
-                                fontSize: 16,
-                                height: 0.8,
+                                fontSize: 16 * scaleRatio,
+                                height: 0.8 * scaleRatio,
                                 color: Colors.white,
                                 fontWeight: FontWeight.w400)),
                         TextSpan(
                             text:
                                 weather.data?.current?.condition?.text ?? '--',
-                            style: const TextStyle(
-                                fontSize: 16,
-                                height: 0.8,
+                            style: TextStyle(
+                                fontSize: 16 * scaleRatio,
+                                height: 0.8 * scaleRatio,
                                 color: Colors.white,
                                 fontWeight: FontWeight.w400))
                       ]),
                     ),
-                    const SizedBox(height: 10),
+                    SizedBox(height: 10 * scaleRatio),
                     RichText(
                       text: TextSpan(children: [
-                        const TextSpan(
+                        TextSpan(
                             text: "UV Index ",
                             style: TextStyle(
-                                fontSize: 14,
-                                height: 0.8,
+                                fontSize: 14 * scaleRatio,
+                                height: 0.8 * scaleRatio,
                                 color: Colors.white,
                                 fontWeight: FontWeight.w400)),
                         TextSpan(
                             text: "${weather.data?.current?.uv ?? '--'}",
-                            style: const TextStyle(
-                                fontSize: 14,
-                                height: 0.8,
+                            style: TextStyle(
+                                fontSize: 14 * scaleRatio,
+                                height: 0.8 * scaleRatio,
                                 color: Colors.white,
                                 fontWeight: FontWeight.w400))
                       ]),

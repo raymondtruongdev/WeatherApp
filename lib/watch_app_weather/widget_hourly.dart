@@ -57,10 +57,12 @@ class WidgetHourly extends StatelessWidget {
       offsetTime = 0;
     }
 
+    double scaleRatio = globalController.getScaleRatio();
+
     return Container(
-      height: 100,
-      margin: const EdgeInsets.only(left: 25),
-      padding: const EdgeInsets.only(top: 5, bottom: 5),
+      height: 100 * scaleRatio,
+      margin: EdgeInsets.only(left: 25 * scaleRatio),
+      padding: EdgeInsets.only(top: 5 * scaleRatio, bottom: 5 * scaleRatio),
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: weatherHourly.length > 5 ? 5 : weatherHourly.length,
@@ -71,10 +73,10 @@ class WidgetHourly extends StatelessWidget {
               //   cardIndex.value = index;
               // },
               child: Container(
-            width: 50,
-            margin: const EdgeInsets.only(left: 14),
+            width: 50 * scaleRatio,
+            margin: EdgeInsets.only(left: 14 * scaleRatio),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(12 * scaleRatio),
               color: Colors.black,
             ),
             child: HourlyDetails(
@@ -124,18 +126,23 @@ class HourlyDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final GlobalController globalController =
+        Get.put(GlobalController(), permanent: true);
+
+    double scaleRatio = globalController.getScaleRatio();
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         Container(
-          margin: const EdgeInsets.only(left: 5),
+          margin: EdgeInsets.only(left: 5 * scaleRatio),
           child: Text("$temp°",
               style: TextStyle(
                   color: cardIndex == index
                       ? Colors.white
                       : CustomColors.textColorBlack,
                   fontFamily: 'roboto',
-                  fontSize: 18,
+                  fontSize: 18 * scaleRatio,
                   fontWeight: FontWeight.bold)),
         ),
         Container(
@@ -143,8 +150,8 @@ class HourlyDetails extends StatelessWidget {
             margin: const EdgeInsets.all(0),
             child: Image.asset(
               weatherIcon,
-              height: 35,
-              width: 35,
+              height: 35 * scaleRatio,
+              width: 35 * scaleRatio,
             )),
         Container(
           margin: const EdgeInsets.only(top: 0),
@@ -154,7 +161,7 @@ class HourlyDetails extends StatelessWidget {
                       ? Colors.white
                       : CustomColors.textColorBlack,
                   fontFamily: 'roboto',
-                  fontSize: 18,
+                  fontSize: 18 * scaleRatio,
                   fontWeight: FontWeight.bold)),
         ),
       ],

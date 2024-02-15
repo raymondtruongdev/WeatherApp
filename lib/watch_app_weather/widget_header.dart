@@ -65,6 +65,8 @@ class WidgetHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     getData();
+    double scaleRatio = globalController.getScaleRatio();
+
     return Flex(
       direction: Axis.vertical,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -72,14 +74,14 @@ class WidgetHeader extends StatelessWidget {
         Flexible(
           flex: 1,
           child: Container(
-            margin: const EdgeInsets.only(top: 15),
+            margin: EdgeInsets.only(top: 15 * scaleRatio),
             // color: Colors.red,
             child: Center(
               child: Text(
                 localtimeStr,
-                style: const TextStyle(
+                style: TextStyle(
                     fontFamily: 'roboto',
-                    fontSize: 18,
+                    fontSize: 18 * scaleRatio,
                     color: Colors.white,
                     fontWeight: FontWeight.bold),
               ),
@@ -106,9 +108,9 @@ class WidgetHeader extends StatelessWidget {
                 },
                 child: Text(
                   city,
-                  style: const TextStyle(
+                  style: TextStyle(
                       fontFamily: 'roboto',
-                      fontSize: 25,
+                      fontSize: 25 * scaleRatio,
                       color: Colors.white,
                       fontWeight: FontWeight.bold),
                 ),
@@ -136,25 +138,27 @@ class CityListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var selectedCityIndex = globalController.getCityIndex();
+    double scaleRatio = globalController.getScaleRatio();
+
     return Scaffold(
         body: Center(
             child: ClipOval(
                 child: Container(
       color: Colors.black,
-      width: 390,
-      height: 390,
+      width: 390 * scaleRatio,
+      height: 390 * scaleRatio,
       child: Column(
         children: [
           Container(
-            height: 50,
+            height: 50 * scaleRatio,
             width: double.infinity,
             color: Colors.green,
-            child: const Center(
+            child: Center(
               child: Text(
                 'City list',
                 style: TextStyle(
                     fontFamily: 'roboto',
-                    fontSize: 25,
+                    fontSize: 25 * scaleRatio,
                     color: Colors.white,
                     fontWeight: FontWeight.bold),
               ),
@@ -163,7 +167,7 @@ class CityListPage extends StatelessWidget {
           Container(
             color: Colors.black,
             width: double.infinity,
-            height: 300,
+            height: 300 * scaleRatio,
             child: ListView.builder(
               itemCount: cities.length,
               itemBuilder: (context, index) {
@@ -178,7 +182,7 @@ class CityListPage extends StatelessWidget {
                         context, cities[index]); // Return selected city
                   },
                   child: Container(
-                    height: 50,
+                    height: 50 * scaleRatio,
                     width: double.infinity,
                     color: (index == selectedCityIndex.toInt())
                         ? const Color(0xFF04CDF4)
@@ -186,9 +190,9 @@ class CityListPage extends StatelessWidget {
                     child: Center(
                       child: Text(
                         cities[index].name,
-                        style: const TextStyle(
+                        style: TextStyle(
                             fontFamily: 'roboto',
-                            fontSize: 25,
+                            fontSize: 25 * scaleRatio,
                             color: Colors.white,
                             fontWeight: FontWeight.bold),
                       ),

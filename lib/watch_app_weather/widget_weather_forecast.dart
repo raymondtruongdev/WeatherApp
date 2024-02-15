@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'comfort_level.dart';
+import 'controller_watch_weather.dart';
 import 'daily_data_forecast.dart';
 import 'widget_current.dart';
 import 'widget_header.dart';
@@ -15,27 +17,31 @@ class WeatherWatchForeCast extends StatefulWidget {
 class _WeatherWatchForeCastState extends State<WeatherWatchForeCast> {
   @override
   Widget build(BuildContext context) {
+    final GlobalController globalController =
+        Get.put(GlobalController(), permanent: true);
+
+    double scaleRatio = globalController.getScaleRatio();
     return Center(
       child: ClipOval(
         child: Container(
           color: Colors.black,
-          width: 390,
-          height: 390,
+          width: 390 * scaleRatio,
+          height: 390 * scaleRatio,
           child: ListView(
             scrollDirection: Axis.vertical,
             children: [
-              const SizedBox(height: 1),
+              SizedBox(height: 1 * scaleRatio),
               SizedBox(
-                height: 80,
+                height: 80 * scaleRatio,
                 child: WidgetHeader(),
               ),
-              const SizedBox(
-                height: 160,
-                child: WidgetCurrent(),
+              SizedBox(
+                height: 160 * scaleRatio,
+                child: const WidgetCurrent(),
               ),
-              const SizedBox(
-                height: 100,
-                child: WidgetHourly(),
+              SizedBox(
+                height: 100 * scaleRatio,
+                child: const WidgetHourly(),
               ),
               Center(
                 child: WidgetDaily(),

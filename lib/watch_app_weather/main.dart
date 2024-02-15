@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import 'controller_watch_weather.dart';
-import 'widget_weather.dart';
 import 'widget_weather_forecast.dart';
 
 void main() => runApp(const MyApp());
@@ -48,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // Simulate fetching new data
     // await Future.delayed(const Duration(seconds: 2));
     final GlobalController globalController = Get.find<GlobalController>();
-    print('updata new data ....');
+    // print('updata new data ....');
     setState(() {
       globalController.getLocation();
     });
@@ -58,6 +57,9 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     final GlobalController globalController =
         Get.put(GlobalController(), permanent: true);
+
+    double scaleRatio = globalController.getScaleRatio();
+
     return Scaffold(
         body: RefreshIndicator(
       onRefresh: fetchData,
@@ -66,16 +68,16 @@ class _MyHomePageState extends State<MyHomePage> {
             ? Center(
                 child: ClipOval(
                 child: Container(
-                  width: 390,
-                  height: 390,
+                  width: 390 * scaleRatio,
+                  height: 390 * scaleRatio,
                   color: Colors.black,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Image.asset(
                         "lib/watch_app_weather/assets/icons/clouds.png",
-                        height: 200,
-                        width: 200,
+                        height: 200 * scaleRatio,
+                        width: 200 * scaleRatio,
                       ),
                       const CircularProgressIndicator()
                     ],
