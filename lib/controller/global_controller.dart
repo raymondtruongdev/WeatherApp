@@ -70,8 +70,8 @@ class GlobalController extends GetxController {
       _latitude.value = value.latitude;
       _longitude.value = value.longitude;
 
-      print('latitude: ${value.latitude}');
-      print('longitude: ${value.longitude}');
+      // print('latitude: ${value.latitude}');
+      // print('longitude: ${value.longitude}');
 
       // calling our weather api
       return FetchWeatherAPI()

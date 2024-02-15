@@ -16,7 +16,7 @@ String apiURL(var lat, var lon, var dataType) {
       url = "http://";
   }
 
-  print(url);
+  // print(url);
   return url;
 }
 
@@ -26,7 +26,7 @@ String apiURLWeatherApi(var lat, var lon) {
   url =
       "https://api.weatherapi.com/v1/forecast.json?key=$apiKeyWeatherApi&q=$lat,$lon&days=5&aqi=yes&alerts=no";
 
-  print(url);
+  // print(url);
   return url;
 }
 

@@ -46,6 +46,7 @@ class _HeaderWidgetV2State extends State<HeaderWidgetV2> {
     // Get City using (lat,lon)
     List<Placemark> placemark = await placemarkFromCoordinates(lat, lon);
     Placemark place = placemark[0];
+    // ignore: unused_local_variable
     String cityPlace = place.locality!;
 
     tz.initializeTimeZones();
@@ -68,6 +69,7 @@ class _HeaderWidgetV2State extends State<HeaderWidgetV2> {
       city = globalController.getDataV2().weather?.location?.name ??
           'Error Network';
       // Get localtime in weather data
+      // ignore: unused_local_variable
       String localtimeStrOrg =
           globalController.getDataV2().weather?.location?.localtime ?? "";
 

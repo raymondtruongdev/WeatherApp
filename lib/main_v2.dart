@@ -32,7 +32,7 @@ class _RefreshPageState extends State<RefreshPage> {
     // Simulate fetching new data
     // await Future.delayed(const Duration(seconds: 2));
     final GlobalController globalController1 = Get.find<GlobalController>();
-    print('updata new data ....');
+    // print('updata new data ....');
     setState(() {
       globalController1.getLocation();
     });

@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
 import 'controller_watch_weather.dart';
-import 'custom_colors.dart';
 import 'weather_data_v2.dart';
 
 class ComfortLevel extends StatelessWidget {

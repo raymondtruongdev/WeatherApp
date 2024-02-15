@@ -33,6 +33,7 @@ class _HeaderWidgetState extends State<HeaderWidget> {
 
   getAddress(lat, lon) async {
     List<Placemark> placemark = await placemarkFromCoordinates(lat, lon);
+    // ignore: unused_local_variable
     Placemark place = placemark[0];
 
     setState(() {

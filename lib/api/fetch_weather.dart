@@ -44,7 +44,7 @@ class FetchWeatherAPI {
         // Query weather data from the server WeatherApi
         var response = await http.get(Uri.parse(apiURLWeatherApi(lat, lon)));
         var jsonstring = response.body;
-        print('JSON WeatherApi : $jsonstring');
+        // print('JSON WeatherApi : $jsonstring');
         jsonDataWeatherApi = jsonDecode(jsonstring);
 
         break;
@@ -64,6 +64,7 @@ class FetchWeatherAPI {
 
     weatherDataV2 = WeatherDataV2(Weatherapi.fromJson(jsonDataWeatherApi));
 
+    // ignore: unused_local_variable
     var weatherApiData =
         WeatherApiData(WeatherApiDataParser.fromJson(jsonDataWeatherApi));
 

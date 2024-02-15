@@ -9,6 +9,7 @@ import 'controller_watch_weather.dart';
 final GlobalController globalController =
     Get.put(GlobalController(), permanent: true);
 
+// ignore: must_be_immutable
 class WidgetHeader extends StatelessWidget {
   WidgetHeader({
     Key? key,
@@ -43,6 +44,7 @@ class WidgetHeader extends StatelessWidget {
     country = globalController.getData().data?.location?.country ?? '';
     city = globalController.getData().data?.location?.name ?? 'Error Network';
     // Get localtime in weather data
+    // ignore: unused_local_variable
     String localtimeStrOrg =
         globalController.getData().data?.location?.localtime ?? "";
 
@@ -63,60 +65,58 @@ class WidgetHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     getData();
-    return Container(
-      child: Flex(
-        direction: Axis.vertical,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Flexible(
-            flex: 1,
-            child: Container(
-              margin: const EdgeInsets.only(top: 15),
-              // color: Colors.red,
-              child: Center(
+    return Flex(
+      direction: Axis.vertical,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Flexible(
+          flex: 1,
+          child: Container(
+            margin: const EdgeInsets.only(top: 15),
+            // color: Colors.red,
+            child: Center(
+              child: Text(
+                localtimeStr,
+                style: const TextStyle(
+                    fontFamily: 'roboto',
+                    fontSize: 18,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+          ),
+        ),
+        Flexible(
+          flex: 1,
+          child: Container(
+            margin: const EdgeInsets.only(top: 0),
+            // color: Colors.green,
+            child: Center(
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor:
+                      const Color(0xFF04CDF4), // Set the button color
+                ),
+                onPressed: () {
+                  // Navigate to the second page
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => CityListPage()),
+                  );
+                },
                 child: Text(
-                  localtimeStr,
+                  city,
                   style: const TextStyle(
                       fontFamily: 'roboto',
-                      fontSize: 18,
+                      fontSize: 25,
                       color: Colors.white,
                       fontWeight: FontWeight.bold),
                 ),
               ),
             ),
           ),
-          Flexible(
-            flex: 1,
-            child: Container(
-              margin: const EdgeInsets.only(top: 0),
-              // color: Colors.green,
-              child: Center(
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor:
-                        const Color(0xFF04CDF4), // Set the button color
-                  ),
-                  onPressed: () {
-                    // Navigate to the second page
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => CityListPage()),
-                    );
-                  },
-                  child: Text(
-                    city,
-                    style: const TextStyle(
-                        fontFamily: 'roboto',
-                        fontSize: 25,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ),
-            ),
-          )
-        ],
-      ),
+        )
+      ],
     );
   }
 }
