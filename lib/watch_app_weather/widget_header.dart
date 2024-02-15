@@ -6,13 +6,13 @@ import 'package:timezone/data/latest.dart' as tz;
 
 import 'controller_watch_weather.dart';
 
+final GlobalController globalController =
+    Get.put(GlobalController(), permanent: true);
+
 class WidgetHeader extends StatelessWidget {
   WidgetHeader({
     Key? key,
   }) : super(key: key);
-
-  final GlobalController globalController =
-      Get.put(GlobalController(), permanent: true);
 
   String localtimeStr = "";
   String country = "";
@@ -91,13 +91,26 @@ class WidgetHeader extends StatelessWidget {
               margin: const EdgeInsets.only(top: 0),
               // color: Colors.green,
               child: Center(
-                child: Text(
-                  city,
-                  style: const TextStyle(
-                      fontFamily: 'roboto',
-                      fontSize: 25,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor:
+                        const Color(0xFF04CDF4), // Set the button color
+                  ),
+                  onPressed: () {
+                    // Navigate to the second page
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => CityListPage()),
+                    );
+                  },
+                  child: Text(
+                    city,
+                    style: const TextStyle(
+                        fontFamily: 'roboto',
+                        fontSize: 25,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold),
+                  ),
                 ),
               ),
             ),
@@ -106,4 +119,99 @@ class WidgetHeader extends StatelessWidget {
       ),
     );
   }
+}
+
+class CityListPage extends StatelessWidget {
+  final List<City> cities = [
+    City(name: 'Current Location', latitude: 0, longitude: 0),
+    City(name: 'New York', latitude: 40.7128, longitude: -74.0060),
+    City(name: 'London', latitude: 51.5074, longitude: -0.1278),
+    City(name: 'Tokyo', latitude: 35.6895, longitude: 139.6917),
+    City(name: 'Paris', latitude: 48.8566, longitude: 2.3522),
+    City(name: 'Sydney', latitude: -33.8688, longitude: 151.2093),
+  ];
+
+  CityListPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    var selectedCityIndex = globalController.getCityIndex();
+    return Scaffold(
+        body: Center(
+            child: ClipOval(
+                child: Container(
+      color: Colors.black,
+      width: 390,
+      height: 390,
+      child: Column(
+        children: [
+          Container(
+            height: 50,
+            width: double.infinity,
+            color: Colors.green,
+            child: const Center(
+              child: Text(
+                'City list',
+                style: TextStyle(
+                    fontFamily: 'roboto',
+                    fontSize: 25,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+          ),
+          Container(
+            color: Colors.black,
+            width: double.infinity,
+            height: 300,
+            child: ListView.builder(
+              itemCount: cities.length,
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: () {
+                    // select the city index
+                    globalController.setCityIndex(index);
+                    globalController.setLatitude(cities[index].latitude);
+                    globalController.setLongitude(cities[index].longitude);
+                    globalController.getLocation();
+                    Navigator.pop(
+                        context, cities[index]); // Return selected city
+                  },
+                  child: Container(
+                    height: 50,
+                    width: double.infinity,
+                    color: (index == selectedCityIndex.toInt())
+                        ? const Color(0xFF04CDF4)
+                        : Colors.black,
+                    child: Center(
+                      child: Text(
+                        cities[index].name,
+                        style: const TextStyle(
+                            fontFamily: 'roboto',
+                            fontSize: 25,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    ))));
+  }
+}
+
+class City {
+  final String name;
+  final double latitude;
+  final double longitude;
+
+  City({
+    required this.name,
+    required this.latitude,
+    required this.longitude,
+  });
 }

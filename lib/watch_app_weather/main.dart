@@ -47,10 +47,10 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<void> fetchData() async {
     // Simulate fetching new data
     // await Future.delayed(const Duration(seconds: 2));
-    final GlobalController globalController1 = Get.find<GlobalController>();
+    final GlobalController globalController = Get.find<GlobalController>();
     print('updata new data ....');
     setState(() {
-      globalController1.getLocation();
+      globalController.getLocation();
     });
   }
 
@@ -59,34 +59,31 @@ class _MyHomePageState extends State<MyHomePage> {
     final GlobalController globalController =
         Get.put(GlobalController(), permanent: true);
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Weather-Mijo Connected'),
-        ),
         body: RefreshIndicator(
-          onRefresh: fetchData,
-          child: Obx(
-            () => globalController.checkLoading().isTrue
-                ? Center(
-                    child: ClipOval(
-                    child: Container(
-                      width: 390,
-                      height: 390,
-                      color: Colors.black,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            "lib/watch_app_weather/assets/icons/clouds.png",
-                            height: 200,
-                            width: 200,
-                          ),
-                          const CircularProgressIndicator()
-                        ],
+      onRefresh: fetchData,
+      child: Obx(
+        () => globalController.checkLoading().isTrue
+            ? Center(
+                child: ClipOval(
+                child: Container(
+                  width: 390,
+                  height: 390,
+                  color: Colors.black,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        "lib/watch_app_weather/assets/icons/clouds.png",
+                        height: 200,
+                        width: 200,
                       ),
-                    ),
-                  ))
-                : const WeatherWatchForeCast(),
-          ),
-        ));
+                      const CircularProgressIndicator()
+                    ],
+                  ),
+                ),
+              ))
+            : const WeatherWatchForeCast(),
+      ),
+    ));
   }
 }

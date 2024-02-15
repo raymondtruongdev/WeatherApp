@@ -29,85 +29,80 @@ class WidgetCurrent extends StatelessWidget {
     final String pathImage = getPathIconLocal(
         globalController.getData().data?.current?.condition?.icon ?? '');
 
-    return Container(
-      // color: Colors.blue,
-      child: Flex(direction: Axis.horizontal, children: [
-        Flexible(
-            flex: 1,
-            child: Flex(
-              direction: Axis.vertical,
-              children: [
-                Flexible(
-                  flex: 1,
-                  child: Container(
-                      // color: Colors.amber,
-                      alignment: Alignment.bottomRight,
-                      padding: const EdgeInsets.only(right: 15),
-                      child: Text(
-                        '${tempMax.toStringAsFixed(0)}°',
-                        style: const TextStyle(
-                            fontFamily: 'roboto',
-                            fontSize: 25,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold),
-                      )),
-                ),
-                Flexible(
-                  flex: 2,
-                  child: Container(
-                      // color: Colors.green,
-                      height: double.infinity,
-                      alignment: Alignment.centerRight,
-                      padding: const EdgeInsets.only(right: 5),
-                      child: FittedBox(
-                        fit: BoxFit.cover,
-                        child: Text(
-                          '${tempCurrent.toStringAsFixed(0)}°',
-                          style: const TextStyle(
-                              fontFamily: 'roboto',
-                              fontSize: 70,
-                              height: 0,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      )),
-                ),
-                Flexible(
-                  flex: 1,
-                  child: Container(
-                      // color: Colors.red,
-                      alignment: Alignment.topRight,
-                      padding: const EdgeInsets.only(right: 15),
-                      child: Text(
-                        '${tempMin.toStringAsFixed(0)}°',
-                        style: const TextStyle(
-                            fontFamily: 'roboto',
-                            fontSize: 25,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold),
-                      )),
-                ),
-              ],
-            )),
-        Flexible(
+    return Flex(direction: Axis.horizontal, children: [
+      Flexible(
           flex: 1,
-          child: Container(
-            // color: Colors.yellow,
-            alignment: Alignment.centerLeft,
-            padding: const EdgeInsets.only(left: 15),
-            child: SizedBox(
-              height: double.infinity,
-              // "lib/assets/weatherV2/64x64/day/113.png",
-              // 'lib/assets/icons/none.png'
-              child: Image.asset(
-                // "lib/assets/weatherV2/64x64/day/116.png",
-                pathImage,
-                fit: BoxFit.cover,
+          child: Flex(
+            direction: Axis.vertical,
+            children: [
+              Flexible(
+                flex: 1,
+                child: Container(
+                  alignment: Alignment.bottomRight,
+                  padding: const EdgeInsets.only(right: 15),
+                  child: Text(
+                    '${tempMax.toStringAsFixed(0)}°',
+                    style: const TextStyle(
+                        fontFamily: 'roboto',
+                        fontSize: 25,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
               ),
+              Flexible(
+                flex: 2,
+                child: Container(
+                    height: double.infinity,
+                    alignment: Alignment.centerRight,
+                    padding: const EdgeInsets.only(right: 5),
+                    child: FittedBox(
+                      fit: BoxFit.cover,
+                      child: Text(
+                        '${tempCurrent.toStringAsFixed(0)}°',
+                        style: const TextStyle(
+                            fontFamily: 'roboto',
+                            fontSize: 70,
+                            height: 0,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    )),
+              ),
+              Flexible(
+                flex: 1,
+                child: Container(
+                    alignment: Alignment.topRight,
+                    padding: const EdgeInsets.only(right: 15),
+                    child: Text(
+                      '${tempMin.toStringAsFixed(0)}°',
+                      style: const TextStyle(
+                          fontFamily: 'roboto',
+                          fontSize: 25,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
+                    )),
+              ),
+            ],
+          )),
+      Flexible(
+        flex: 1,
+        child: Container(
+          // color: Colors.yellow,
+          alignment: Alignment.centerLeft,
+          padding: const EdgeInsets.only(left: 15),
+          child: SizedBox(
+            height: double.infinity,
+            // "lib/assets/weatherV2/64x64/day/113.png",
+            // 'lib/assets/icons/none.png'
+            child: Image.asset(
+              // "lib/assets/weatherV2/64x64/day/116.png",
+              pathImage,
+              fit: BoxFit.cover,
             ),
           ),
         ),
-      ]),
-    );
+      ),
+    ]);
   }
 }

@@ -8,13 +8,30 @@ import 'weather_data_v2.dart';
 class GlobalController extends GetxController {
   final RxDouble _watchSize = 0.0.obs;
   final RxBool _isLoading = true.obs;
+  final RxBool _isTimeout = false.obs;
   final RxDouble _latitude = 0.0.obs;
   final RxDouble _longitude = 0.0.obs;
   final RxInt _currentIndex = 0.obs;
+  final RxInt _cityIndex = 0.obs;
 
   RxBool checkLoading() => _isLoading;
+  RxBool checkTimeout() => _isTimeout;
   RxDouble getLattitude() => _latitude;
   RxDouble getLongitude() => _longitude;
+  RxInt getIndex() => _currentIndex;
+  RxInt getCityIndex() => _cityIndex;
+
+  setCityIndex(int value) {
+    _cityIndex.value = value;
+  }
+
+  setLatitude(double value) {
+    _latitude.value = value;
+  }
+
+  setLongitude(double value) {
+    _longitude.value = value;
+  }
 
   final weatherData = WeatherApiData().obs;
 
@@ -42,6 +59,31 @@ class GlobalController extends GetxController {
   }
 
   getLocation() async {
+    if (_cityIndex == 0) {
+      try {
+        getLocationGoogleService();
+      } catch (e) {
+        print('GPS error');
+        getLocationWifi();
+      }
+    } else {
+      getLocationWifi();
+    }
+  }
+
+  getLocationWifi() async {
+    _isLoading.value = true;
+
+    // calling our weather api
+    return FetchWeather()
+        .processData(_latitude.value, _longitude.value)
+        .then((WeatherApiData? result) {
+      weatherData.value = result as WeatherApiData;
+      _isLoading.value = false;
+    });
+  }
+
+  getLocationGoogleService() async {
     bool isSeviceEnable;
     LocationPermission locationPermission;
 
@@ -84,9 +126,5 @@ class GlobalController extends GetxController {
         _isLoading.value = false;
       });
     });
-  }
-
-  RxInt getIndex() {
-    return _currentIndex;
   }
 }

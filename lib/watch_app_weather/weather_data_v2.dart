@@ -18,7 +18,7 @@ class WeatherApiData {
       try {
         hour.add([...element.hour!]);
       } catch (e) {
-        print('can not convert');
+        // print('can not convert');
       }
     });
   }

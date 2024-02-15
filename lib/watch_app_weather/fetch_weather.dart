@@ -22,14 +22,14 @@ class FetchWeather {
         // Query weather data from the server WeatherApi
         var response = await http.get(Uri.parse(apiURLWeatherApi(lat, lon)));
         var jsonstring = response.body;
-        print('JSON WeatherApi : $jsonstring');
+        // print('JSON WeatherApi : $jsonstring');
         jsonDataWeatherApi = jsonDecode(jsonstring);
 
         break;
 
       default: // Using the demo data
-      // Using weather data from a json in demo file
-      // jsonDataWeatherApi = hochiminh;
+        // Using weather data from a json in demo file
+        jsonDataWeatherApi = hochiminh;
     }
 
     weatherApiData =

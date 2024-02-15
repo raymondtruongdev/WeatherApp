@@ -34,7 +34,7 @@ class WidgetDaily extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 265,
+      // height: 265,
       width: 300,
       margin: const EdgeInsets.all(5),
       padding: const EdgeInsets.all(5),
@@ -67,7 +67,7 @@ class WidgetDaily extends StatelessWidget {
     }
 
     return SizedBox(
-      height: 200,
+      height: (weatherDaily.length > 7 ? 7 : weatherDaily.length) * 60 + 10,
       child: ListView.builder(
         scrollDirection: Axis.vertical,
         itemCount: weatherDaily.length > 7 ? 7 : weatherDaily.length,
