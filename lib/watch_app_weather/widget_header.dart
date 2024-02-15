@@ -126,6 +126,7 @@ class WidgetHeader extends StatelessWidget {
 class CityListPage extends StatelessWidget {
   final List<City> cities = [
     City(name: 'Current Location', latitude: 0, longitude: 0),
+    City(name: 'Ho Chi Minh', latitude: 10.7726017, longitude: 106.697845),
     City(name: 'New York', latitude: 40.7128, longitude: -74.0060),
     City(name: 'London', latitude: 51.5074, longitude: -0.1278),
     City(name: 'Tokyo', latitude: 35.6895, longitude: 139.6917),
