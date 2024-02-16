@@ -38,8 +38,15 @@ class WidgetHeader extends StatelessWidget {
       offsetTime = 0;
     }
 
-    int localtimeEpoch =
-        globalController.getData().data?.location?.localtimeEpoch ?? 0;
+    if (globalController.getData().data?.location?.localtimeEpoch != null) {
+      int localtimeEpoch =
+          globalController.getData().data?.location?.localtimeEpoch ?? 0;
+
+      // Reformat localtime to dd MMM yyyy - HH:mm
+      localtimeStr = getFormattedDate(localtimeEpoch + offsetTime);
+    } else {
+      localtimeStr = 'Updated at: --';
+    }
 
     // Get City from Weather data
     country = globalController.getData().data?.location?.country ?? '';
@@ -57,9 +64,6 @@ class WidgetHeader extends StatelessWidget {
     // ignore: unused_local_variable
     String localtimeStrOrg =
         globalController.getData().data?.location?.localtime ?? "";
-
-    // Reformat localtime to dd MMM yyyy - HH:mm
-    localtimeStr = getFormattedDate(localtimeEpoch + offsetTime);
   }
 
   String getFormattedDate(final timestamp) {
