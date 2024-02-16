@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'comfort_level.dart';
 import 'controller_watch_weather.dart';
-import 'daily_data_forecast.dart';
+import 'widget_daily.dart';
 import 'widget_current.dart';
 import 'widget_header.dart';
 import 'widget_hourly.dart';

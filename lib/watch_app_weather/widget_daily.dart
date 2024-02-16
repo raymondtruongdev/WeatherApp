@@ -46,9 +46,11 @@ class WidgetDaily extends StatelessWidget {
           Container(
             alignment: Alignment.topLeft,
             margin: const EdgeInsets.only(bottom: 10),
-            child: const Text(
-              "Next Days",
-              style: TextStyle(color: Colors.white, fontSize: 20),
+            child: const Center(
+              child: Text(
+                "Next Days",
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
             ),
           ),
           dailyList(),

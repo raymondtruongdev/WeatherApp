@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import 'controller_watch_weather.dart';
-import 'widget_weather_forecast.dart';
+import 'widget_weather_watch.dart';
 
 void main() => runApp(const MyApp());
 
