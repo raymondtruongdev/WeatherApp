@@ -60,16 +60,7 @@ class GlobalController extends GetxController {
   @override
   void onInit() {
     _watchSize.value = 1080.0;
-
-    // City(name: 'Ho Chi Minh', latitude: 10.7726017, longitude: 106.697845),
-    _latitude.value = 10.7726017;
-    _longitude.value = 106.697845;
-
-    if (_isLoading.isTrue) {
-      getWeatherData();
-    } else {
-      getIndex();
-    }
+    getWeatherData();
     super.onInit();
   }
 
