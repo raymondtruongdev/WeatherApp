@@ -20,20 +20,27 @@ class FetchWeather {
       case 'online':
 
         // Query weather data from the server WeatherApi
-        var response = await http.get(Uri.parse(apiURLWeatherApi(lat, lon)));
-        var jsonstring = response.body;
-        // print('JSON WeatherApi : $jsonstring');
-        jsonDataWeatherApi = jsonDecode(jsonstring);
+        try {
+          var response = await http.get(Uri.parse(apiURLWeatherApi(lat, lon)));
+          var jsonstring = response.body;
+          // var jsonstring = response.body;
+          // print('JSON WeatherApi : $jsonstring');
+          jsonDataWeatherApi = jsonDecode(jsonstring);
+          weatherApiData =
+              WeatherApiData(WeatherApiDataParser.fromJson(jsonDataWeatherApi));
+        } catch (e) {
+          // Return empty data
+          weatherApiData = WeatherApiData();
+        }
 
         break;
 
       default: // Using the demo data
         // Using weather data from a json in demo file
         jsonDataWeatherApi = hochiminh;
+        weatherApiData =
+            WeatherApiData(WeatherApiDataParser.fromJson(jsonDataWeatherApi));
     }
-
-    weatherApiData =
-        WeatherApiData(WeatherApiDataParser.fromJson(jsonDataWeatherApi));
 
     return (weatherApiData);
   }

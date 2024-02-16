@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:timezone/timezone.dart' as tz;
@@ -43,6 +44,15 @@ class WidgetHeader extends StatelessWidget {
     // Get City from Weather data
     country = globalController.getData().data?.location?.country ?? '';
     city = globalController.getData().data?.location?.name ?? 'Error Network';
+
+    if (city == 'Error Network') {
+      if ((globalController.getlocationPermission() ==
+              LocationPermission.denied) ||
+          (globalController.getlocationPermission() ==
+              LocationPermission.deniedForever)) {
+        city = 'Check Location Permission';
+      }
+    }
     // Get localtime in weather data
     // ignore: unused_local_variable
     String localtimeStrOrg =
@@ -110,7 +120,7 @@ class WidgetHeader extends StatelessWidget {
                   city,
                   style: TextStyle(
                       fontFamily: 'roboto',
-                      fontSize: 25 * scaleRatio,
+                      fontSize: 20 * scaleRatio,
                       color: Colors.white,
                       fontWeight: FontWeight.bold),
                 ),
@@ -179,7 +189,7 @@ class CityListPage extends StatelessWidget {
                         globalController.setCityIndex(index);
                         globalController.setLatitude(cities[index].latitude);
                         globalController.setLongitude(cities[index].longitude);
-                        globalController.getLocation();
+                        globalController.getWeatherData();
                         Navigator.pop(
                             context, cities[index]); // Return selected city
                       },

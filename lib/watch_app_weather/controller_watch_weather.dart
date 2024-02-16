@@ -15,6 +15,9 @@ class GlobalController extends GetxController {
   final RxInt _cityIndex = 0.obs;
   double _scaleRatio = 0.0;
 
+  bool _isSeviceEnable = false;
+  LocationPermission _locationPermission = LocationPermission.denied;
+
   RxBool checkLoading() => _isLoading;
   RxBool checkTimeout() => _isTimeout;
   RxDouble getLattitude() => _latitude;
@@ -22,6 +25,7 @@ class GlobalController extends GetxController {
   RxInt getIndex() => _currentIndex;
   RxInt getCityIndex() => _cityIndex;
   double getScaleRatio() => _scaleRatio;
+  LocationPermission getlocationPermission() => _locationPermission;
 
   setCityIndex(int value) {
     _cityIndex.value = value;
@@ -62,82 +66,92 @@ class GlobalController extends GetxController {
     _longitude.value = 106.697845;
 
     if (_isLoading.isTrue) {
-      getLocation();
+      getWeatherData();
     } else {
       getIndex();
     }
     super.onInit();
   }
 
-  getLocation() async {
-    // if (_cityIndex.toInt() == 0) {
-    //   try {
-    //     getLocationGoogleService();
-    //   } catch (e) {
-    //     // print('GPS error');
-    //     getLocationWifi();
-    //   }
-    // } else {
-    //   getLocationWifi();
-    // }
-
-    getLocationWifi();
+  Future<void> getWeatherData() async {
+    if (_cityIndex.toInt() == 0) {
+      try {
+        _isLoading.value = true;
+        await checkLocationPermission();
+        await getCurrentLocation();
+        await getNewWeatherData();
+      } catch (e) {
+        // print('GPS error');
+      }
+    } else {
+      getNewWeatherData();
+    }
   }
 
-  getLocationWifi() async {
-    _isLoading.value = true;
-
-    // calling our weather api
-    return FetchWeather()
-        .processData(_latitude.value, _longitude.value)
-        .then((WeatherApiData? result) {
-      weatherData.value = result as WeatherApiData;
-      _isLoading.value = false;
-    });
-  }
-
-  getLocationGoogleService() async {
+  Future<void> checkLocationPermission() async {
     bool isSeviceEnable;
-    LocationPermission locationPermission;
 
+    _isSeviceEnable = false;
     _isLoading.value = true;
 
     isSeviceEnable = await Geolocator.isLocationServiceEnabled();
     if (!isSeviceEnable) {
-      return Future.error("Location not enable");
+      // return Future.error("Location not enable");
+
+      // There is no service enable
+      _isSeviceEnable = false;
+      _isLoading.value = false;
+      return;
     }
     // status of permission
-    locationPermission = await Geolocator.checkPermission();
+    _locationPermission = await Geolocator.checkPermission();
 
-    if (locationPermission == LocationPermission.deniedForever) {
+    if (_locationPermission == LocationPermission.deniedForever) {
+      _isLoading.value = false;
       return Future.error("Location permission denied forever");
     }
 
 // request permission
-    if (locationPermission == LocationPermission.denied) {
-      locationPermission = await Geolocator.requestPermission();
-      if (locationPermission == LocationPermission.denied) {
+    if (_locationPermission == LocationPermission.denied) {
+      _locationPermission = await Geolocator.requestPermission();
+      if (_locationPermission == LocationPermission.denied) {
+        _isLoading.value = false;
         return Future.error("Location permission denied");
       }
     }
+    if ((_locationPermission == LocationPermission.whileInUse) ||
+        (_locationPermission == LocationPermission.always)) {
+      _isSeviceEnable = true;
+    }
+  }
 
-    return await Geolocator.getCurrentPosition(
-            desiredAccuracy: LocationAccuracy.high)
-        .then((value) {
-      // update our lattitude and longitude
-      _latitude.value = value.latitude;
-      _longitude.value = value.longitude;
+  Future<void> getCurrentLocation() async {
+    if (_isSeviceEnable) {
+      await Geolocator.getCurrentPosition(
+              desiredAccuracy: LocationAccuracy.high)
+          .then((value) {
+        // update our lattitude and longitude
+        _latitude.value = value.latitude;
+        _longitude.value = value.longitude;
+      });
+    } else {
+      _latitude.value = 0;
+      _longitude.value = 0;
+    }
+  }
 
-      // print('latitude: ${value.latitude}');
-      // print('longitude: ${value.longitude}');
-
-      // calling our weather api
-      return FetchWeather()
-          .processData(value.latitude, value.longitude)
+  Future<void> getNewWeatherData() async {
+    if ((_latitude.toDouble() != 0) && (_longitude.toDouble() != 0)) {
+      _isLoading.value = true;
+      FetchWeather()
+          .processData(_latitude.value, _longitude.value)
           .then((WeatherApiData? result) {
         weatherData.value = result as WeatherApiData;
         _isLoading.value = false;
       });
-    });
+    } else {
+      weatherData.value = (WeatherApiData());
+      _isLoading.value = false;
+    }
   }
 }

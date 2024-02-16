@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
     double widthScreenDevice = MediaQuery.of(context).size.width;
     globalController.updateWatchSize(widthScreenDevice);
 
-    globalController.getLocation();
+    globalController.getWeatherData();
 
     return const MaterialApp(
       home: MyHomePage(),
@@ -49,7 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
     final GlobalController globalController = Get.find<GlobalController>();
     // print('updata new data ....');
     setState(() {
-      globalController.getLocation();
+      globalController.getWeatherData();
     });
   }
 
