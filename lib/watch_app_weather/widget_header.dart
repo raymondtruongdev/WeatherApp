@@ -142,70 +142,71 @@ class CityListPage extends StatelessWidget {
     double scaleRatio = globalController.getScaleRatio();
 
     return Scaffold(
+        backgroundColor: Colors.black,
         body: Center(
             child: ClipOval(
                 child: Container(
-      color: Colors.black,
-      width: 390 * scaleRatio,
-      height: 390 * scaleRatio,
-      child: Column(
-        children: [
-          Container(
-            height: 50 * scaleRatio,
-            width: double.infinity,
-            color: Colors.green,
-            child: Center(
-              child: Text(
-                'City list',
-                style: TextStyle(
-                    fontFamily: 'roboto',
-                    fontSize: 25 * scaleRatio,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
-          ),
-          Container(
-            color: Colors.black,
-            width: double.infinity,
-            height: 300 * scaleRatio,
-            child: ListView.builder(
-              itemCount: cities.length,
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () {
-                    // select the city index
-                    globalController.setCityIndex(index);
-                    globalController.setLatitude(cities[index].latitude);
-                    globalController.setLongitude(cities[index].longitude);
-                    globalController.getLocation();
-                    Navigator.pop(
-                        context, cities[index]); // Return selected city
-                  },
-                  child: Container(
-                    height: 50 * scaleRatio,
-                    width: double.infinity,
-                    color: (index == selectedCityIndex.toInt())
-                        ? const Color(0xFF04CDF4)
-                        : Colors.black,
-                    child: Center(
-                      child: Text(
-                        cities[index].name,
-                        style: TextStyle(
-                            fontFamily: 'roboto',
-                            fontSize: 25 * scaleRatio,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
+          color: Colors.black,
+          width: 390 * scaleRatio,
+          height: 390 * scaleRatio,
+          child: Column(
+            children: [
+              Container(
+                height: 50 * scaleRatio,
+                width: double.infinity,
+                color: Colors.green,
+                child: Center(
+                  child: Text(
+                    'City list',
+                    style: TextStyle(
+                        fontFamily: 'roboto',
+                        fontSize: 25 * scaleRatio,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold),
                   ),
-                );
-              },
-            ),
+                ),
+              ),
+              Container(
+                color: Colors.black,
+                width: double.infinity,
+                height: 300 * scaleRatio,
+                child: ListView.builder(
+                  itemCount: cities.length,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () {
+                        // select the city index
+                        globalController.setCityIndex(index);
+                        globalController.setLatitude(cities[index].latitude);
+                        globalController.setLongitude(cities[index].longitude);
+                        globalController.getLocation();
+                        Navigator.pop(
+                            context, cities[index]); // Return selected city
+                      },
+                      child: Container(
+                        height: 50 * scaleRatio,
+                        width: double.infinity,
+                        color: (index == selectedCityIndex.toInt())
+                            ? const Color(0xFF04CDF4)
+                            : Colors.black,
+                        child: Center(
+                          child: Text(
+                            cities[index].name,
+                            style: TextStyle(
+                                fontFamily: 'roboto',
+                                fontSize: 25 * scaleRatio,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
-    ))));
+        ))));
   }
 }
 

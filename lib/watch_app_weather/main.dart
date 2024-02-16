@@ -61,31 +61,32 @@ class _MyHomePageState extends State<MyHomePage> {
     double scaleRatio = globalController.getScaleRatio();
 
     return Scaffold(
+        backgroundColor: Colors.black,
         body: RefreshIndicator(
-      onRefresh: fetchData,
-      child: Obx(
-        () => globalController.checkLoading().isTrue
-            ? Center(
-                child: ClipOval(
-                child: Container(
-                  width: 390 * scaleRatio,
-                  height: 390 * scaleRatio,
-                  color: Colors.black,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        "lib/watch_app_weather/assets/icons/clouds.png",
-                        height: 200 * scaleRatio,
-                        width: 200 * scaleRatio,
+          onRefresh: fetchData,
+          child: Obx(
+            () => globalController.checkLoading().isTrue
+                ? Center(
+                    child: ClipOval(
+                    child: Container(
+                      width: 390 * scaleRatio,
+                      height: 390 * scaleRatio,
+                      color: Colors.black,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            "lib/watch_app_weather/assets/icons/clouds.png",
+                            height: 200 * scaleRatio,
+                            width: 200 * scaleRatio,
+                          ),
+                          const CircularProgressIndicator()
+                        ],
                       ),
-                      const CircularProgressIndicator()
-                    ],
-                  ),
-                ),
-              ))
-            : const WeatherWatchForeCast(),
-      ),
-    ));
+                    ),
+                  ))
+                : const WeatherWatchForeCast(),
+          ),
+        ));
   }
 }
