@@ -56,6 +56,11 @@ class GlobalController extends GetxController {
   @override
   void onInit() {
     _watchSize.value = 1080.0;
+
+    // City(name: 'Ho Chi Minh', latitude: 10.7726017, longitude: 106.697845),
+    _latitude.value = 10.7726017;
+    _longitude.value = 106.697845;
+
     if (_isLoading.isTrue) {
       getLocation();
     } else {
@@ -65,16 +70,18 @@ class GlobalController extends GetxController {
   }
 
   getLocation() async {
-    if (_cityIndex.toInt() == 0) {
-      try {
-        getLocationGoogleService();
-      } catch (e) {
-        // print('GPS error');
-        getLocationWifi();
-      }
-    } else {
-      getLocationWifi();
-    }
+    // if (_cityIndex.toInt() == 0) {
+    //   try {
+    //     getLocationGoogleService();
+    //   } catch (e) {
+    //     // print('GPS error');
+    //     getLocationWifi();
+    //   }
+    // } else {
+    //   getLocationWifi();
+    // }
+
+    getLocationWifi();
   }
 
   getLocationWifi() async {
