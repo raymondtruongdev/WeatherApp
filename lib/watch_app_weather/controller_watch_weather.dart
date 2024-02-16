@@ -76,7 +76,6 @@ class GlobalController extends GetxController {
   Future<void> getWeatherData() async {
     if (_cityIndex.toInt() == 0) {
       try {
-        _isLoading.value = true;
         await checkLocationPermission();
         await getCurrentLocation();
         await getNewWeatherData();
@@ -150,7 +149,9 @@ class GlobalController extends GetxController {
         _isLoading.value = false;
       });
     } else {
+      _isLoading.value = true;
       weatherData.value = (WeatherApiData());
+      await Future.delayed(const Duration(milliseconds: 200));
       _isLoading.value = false;
     }
   }
