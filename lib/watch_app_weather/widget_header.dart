@@ -53,11 +53,15 @@ class WidgetHeader extends StatelessWidget {
     city = globalController.getData().data?.location?.name ?? 'Error Network';
 
     if (city == 'Error Network') {
-      if ((globalController.getlocationPermission() ==
-              LocationPermission.denied) ||
-          (globalController.getlocationPermission() ==
-              LocationPermission.deniedForever)) {
-        city = 'Check Location Permission';
+      if (globalController.isSeviceEnable == true) {
+        if ((globalController.getlocationPermission() ==
+                LocationPermission.denied) ||
+            (globalController.getlocationPermission() ==
+                LocationPermission.deniedForever)) {
+          city = 'Check Location Permission';
+        }
+      } else {
+        city = 'No GPS/Wifi';
       }
     }
     // Get localtime in weather data

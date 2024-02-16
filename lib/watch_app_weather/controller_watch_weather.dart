@@ -15,7 +15,7 @@ class GlobalController extends GetxController {
   final RxInt _cityIndex = 0.obs;
   double _scaleRatio = 0.0;
 
-  bool _isSeviceEnable = false;
+  bool isSeviceEnable = false;
   LocationPermission _locationPermission = LocationPermission.denied;
 
   RxBool checkLoading() => _isLoading;
@@ -81,7 +81,7 @@ class GlobalController extends GetxController {
   Future<void> checkLocationPermission() async {
     bool isSeviceEnable;
 
-    _isSeviceEnable = false;
+    isSeviceEnable = false;
     _isLoading.value = true;
 
     isSeviceEnable = await Geolocator.isLocationServiceEnabled();
@@ -89,7 +89,7 @@ class GlobalController extends GetxController {
       // return Future.error("Location not enable");
 
       // There is no service enable
-      _isSeviceEnable = false;
+      isSeviceEnable = false;
       _isLoading.value = false;
       return;
     }
@@ -111,12 +111,12 @@ class GlobalController extends GetxController {
     }
     if ((_locationPermission == LocationPermission.whileInUse) ||
         (_locationPermission == LocationPermission.always)) {
-      _isSeviceEnable = true;
+      isSeviceEnable = true;
     }
   }
 
   Future<void> getCurrentLocation() async {
-    if (_isSeviceEnable) {
+    if (isSeviceEnable) {
       await Geolocator.getCurrentPosition(
               desiredAccuracy: LocationAccuracy.high)
           .then((value) {
