@@ -19,15 +19,33 @@ class WidgetCurrent extends StatelessWidget {
     final GlobalController globalController =
         Get.put(GlobalController(), permanent: true);
 
-    final double tempCurrent =
-        globalController.getData().data?.current?.tempC ?? 0;
-    final double tempMax =
-        globalController.getData().data?.day?[0].day?.maxtempC ?? 0;
-    final double tempMin =
-        globalController.getData().data?.day?[0].day?.mintempC ?? 0;
+    String tempCurrentStr = '';
+    if (globalController.getData().data?.current?.tempC == null) {
+      tempCurrentStr = '';
+    } else {
+      tempCurrentStr =
+          '${globalController.getData().data?.current?.tempC?.toStringAsFixed(0)}°';
+    }
+
+    String tempMaxStr = '';
+    if (globalController.getData().data?.day?[0].day?.maxtempC == null) {
+      tempMaxStr = '';
+    } else {
+      tempMaxStr =
+          '${globalController.getData().data?.day?[0].day?.maxtempC?.toStringAsFixed(0)}°';
+    }
+
+    String tempMinStr = '';
+    if (globalController.getData().data?.day?[0].day?.mintempC == null) {
+      tempMinStr = '';
+    } else {
+      tempMinStr =
+          '${globalController.getData().data?.day?[0].day?.mintempC?.toStringAsFixed(0)}°';
+    }
 
     final String pathImage = getPathIconLocal(
-        globalController.getData().data?.current?.condition?.icon ?? '');
+        globalController.getData().data?.current?.condition?.icon ??
+            "lib/watch_app_weather/assets/icons/none.png");
 
     double scaleRatio = globalController.getScaleRatio();
 
@@ -39,51 +57,60 @@ class WidgetCurrent extends StatelessWidget {
             children: [
               Flexible(
                 flex: 1,
-                child: Container(
-                  alignment: Alignment.bottomRight,
-                  padding: EdgeInsets.only(right: 15 * scaleRatio),
-                  child: Text(
-                    '${tempMax.toStringAsFixed(0)}°',
-                    style: TextStyle(
-                        fontFamily: 'roboto',
-                        fontSize: 25 * scaleRatio,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
+                child: tempMaxStr.isEmpty
+                    ? Container()
+                    : Container(
+                        alignment: Alignment.bottomRight,
+                        padding: EdgeInsets.only(right: 15 * scaleRatio),
+                        child: Text(
+                          tempMaxStr,
+                          style: TextStyle(
+                              fontFamily: 'roboto',
+                              fontSize: 25 * scaleRatio,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
               ),
               Flexible(
                 flex: 2,
-                child: Container(
-                    height: double.infinity,
-                    alignment: Alignment.centerRight,
-                    padding: EdgeInsets.only(right: 5 * scaleRatio),
-                    child: FittedBox(
-                      fit: BoxFit.cover,
-                      child: Text(
-                        '${tempCurrent.toStringAsFixed(0)}°',
-                        style: TextStyle(
-                            fontFamily: 'roboto',
-                            fontSize: 70 * scaleRatio,
-                            height: 0,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold),
+                child: tempCurrentStr.isEmpty
+                    ? Container()
+                    : Container(
+                        height: double.infinity,
+                        alignment: Alignment.centerRight,
+                        padding: EdgeInsets.only(right: 5 * scaleRatio),
+                        child: FittedBox(
+                          fit: BoxFit.cover,
+                          child: Text(
+                            tempCurrentStr,
+                            style: TextStyle(
+                              fontFamily: 'roboto',
+                              fontSize: 70 * scaleRatio,
+                              height:
+                                  1, // Changed height from 0 to 1, assuming you want normal height
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
                       ),
-                    )),
               ),
               Flexible(
                 flex: 1,
-                child: Container(
-                    alignment: Alignment.topRight,
-                    padding: EdgeInsets.only(right: 15 * scaleRatio),
-                    child: Text(
-                      '${tempMin.toStringAsFixed(0)}°',
-                      style: TextStyle(
-                          fontFamily: 'roboto',
-                          fontSize: 25 * scaleRatio,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold),
-                    )),
+                child: tempMinStr.isEmpty
+                    ? Container()
+                    : Container(
+                        alignment: Alignment.topRight,
+                        padding: EdgeInsets.only(right: 15 * scaleRatio),
+                        child: Text(
+                          tempMinStr,
+                          style: TextStyle(
+                              fontFamily: 'roboto',
+                              fontSize: 25 * scaleRatio,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold),
+                        )),
               ),
             ],
           )),
