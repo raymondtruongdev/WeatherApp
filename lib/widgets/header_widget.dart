@@ -23,12 +23,23 @@ class _HeaderWidgetState extends State<HeaderWidget> {
   // String date = DateFormat("yMMMMd HH:mm").format(DateTime.now());
   final date = DateFormat('dd MMMM yyyy - HH:mm').format(DateTime.now());
   String datedemo = "26 January 2024 - 22:30";
+  String localtimeStr = "";
 
   @override
   void initState() {
     getAddress(globalController.getLattitude().value,
         globalController.getLongitude().value);
     super.initState();
+  }
+
+  String getFormattedDate(final timestamp) {
+    DateTime time = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
+    var dateLocal = time.toUtc();
+    // final formattedDate =
+    //     'Updated on ${DateFormat('dd MMM yyyy').format(dateLocal)}, at ${DateFormat('HH:mm').format(dateLocal)}';
+    final formattedDate = 'Updated at ${DateFormat('HH:mm').format(dateLocal)}';
+    // DateFormat('dd MMM yyyy - HH:mm').format(dateLocal)
+    return formattedDate;
   }
 
   getAddress(lat, lon) async {
@@ -39,6 +50,24 @@ class _HeaderWidgetState extends State<HeaderWidget> {
     setState(() {
       city =
           globalController.getData().weatherCurrent?.weatherCurrent.name ?? '';
+
+      if (globalController.getData().weatherCurrent?.weatherCurrent.dt !=
+          null) {
+        int localtimeEpoch =
+            globalController.getData().weatherCurrent?.weatherCurrent.dt ?? 0;
+
+        int offsetTime = globalController
+                .getData()
+                .weatherCurrent
+                ?.weatherCurrent
+                .timezone ??
+            0;
+
+        // Reformat localtime to dd MMM yyyy - HH:mm
+        localtimeStr = getFormattedDate(localtimeEpoch + offsetTime);
+      } else {
+        localtimeStr = 'Updated at: --';
+      }
     });
   }
 
@@ -54,7 +83,7 @@ class _HeaderWidgetState extends State<HeaderWidget> {
         Container(
           margin: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
           alignment: Alignment.topLeft,
-          child: Text(datedemo, style: const TextStyle(fontSize: 14)),
+          child: Text(localtimeStr, style: const TextStyle(fontSize: 14)),
         ),
       ],
     );
