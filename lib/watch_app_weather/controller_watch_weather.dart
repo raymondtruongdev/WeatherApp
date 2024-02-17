@@ -14,8 +14,9 @@ class GlobalController extends GetxController {
   final RxInt _currentIndex = 0.obs;
   final RxInt _cityIndex = 0.obs;
   double _scaleRatio = 0.0;
-
   bool isSeviceEnable = false;
+  bool _isCircleDevice = false;
+
   LocationPermission _locationPermission = LocationPermission.denied;
 
   RxBool checkLoading() => _isLoading;
@@ -26,6 +27,7 @@ class GlobalController extends GetxController {
   RxInt getCityIndex() => _cityIndex;
   double getScaleRatio() => _scaleRatio;
   LocationPermission getlocationPermission() => _locationPermission;
+  bool isCircleDevice() => _isCircleDevice;
 
   setCityIndex(int value) {
     _cityIndex.value = value;
@@ -45,7 +47,7 @@ class GlobalController extends GetxController {
     return weatherData.value;
   }
 
-  void updateWatchSize(double widthScreenDevice) {
+  void updateWatchSize(double widthScreenDevice, double heightScreenDevice) {
     // If widthScreenDevice <       0   : _watchSize = 0;
     // If widthScreenDevice > maxScreen : _watchSize = maxScreen;
     // If 0 <= widthScreenDevice <= maxScreen : _watchSize = widthScreenDevice;
@@ -55,6 +57,11 @@ class GlobalController extends GetxController {
     double defaultWatchSize = 390;
 
     _scaleRatio = _watchSize.toDouble() / defaultWatchSize;
+
+    if (heightScreenDevice <= widthScreenDevice * 0.2) {
+      // heigth < 110% of width => circle face
+      _isCircleDevice = true;
+    }
   }
 
   @override

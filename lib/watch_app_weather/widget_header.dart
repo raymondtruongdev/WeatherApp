@@ -160,7 +160,8 @@ class CityListPage extends StatelessWidget {
     double scaleRatio = globalController.getScaleRatio();
 
     return Scaffold(
-        backgroundColor: Colors.black,
+        backgroundColor:
+            globalController.isCircleDevice() ? Colors.black : Colors.white,
         body: Center(
             child: ClipOval(
                 child: Container(
