@@ -61,8 +61,9 @@ class GlobalController extends GetxController {
   void onInit() {
     // _cityIndex.value = 1;
     _watchSize.value = 1080.0;
-    // getWeatherData();
+
     super.onInit();
+    getWeatherData();
   }
 
   Future<void> getWeatherData() async {
