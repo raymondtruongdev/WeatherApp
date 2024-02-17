@@ -45,6 +45,8 @@ dependencies:
   pull_to_refresh: ^2.0.0
   timezone: ^0.9.2
   flutter_svg:
+  connectivity:
+  wifi_info_flutter:
 
 dev_dependencies:
   flutter_test:

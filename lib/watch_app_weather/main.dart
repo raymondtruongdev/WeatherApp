@@ -18,7 +18,8 @@ class MyApp extends StatelessWidget {
     final GlobalController globalController =
         Get.put(GlobalController(), permanent: true);
     double widthScreenDevice = MediaQuery.of(context).size.width;
-    globalController.updateWatchSize(widthScreenDevice);
+    double heightScreenDevice = MediaQuery.of(context).size.height;
+    globalController.updateWatchSize(widthScreenDevice, heightScreenDevice);
 
     return const MaterialApp(
       home: MyHomePage(),
@@ -56,7 +57,8 @@ class _MyHomePageState extends State<MyHomePage> {
     double scaleRatio = globalController.getScaleRatio();
 
     return Scaffold(
-        backgroundColor: Colors.black,
+        backgroundColor:
+            globalController.isCircleDevice() ? Colors.black : Colors.white,
         body: RefreshIndicator(
           onRefresh: fetchData,
           child: Obx(
