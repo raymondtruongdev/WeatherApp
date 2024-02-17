@@ -59,8 +59,9 @@ class GlobalController extends GetxController {
 
   @override
   void onInit() {
+    // _cityIndex.value = 1;
     _watchSize.value = 1080.0;
-    getWeatherData();
+    // getWeatherData();
     super.onInit();
   }
 
@@ -79,13 +80,13 @@ class GlobalController extends GetxController {
   }
 
   Future<void> checkLocationPermission() async {
-    bool isSeviceEnable;
+    bool isSeviceEnableStatus;
 
     isSeviceEnable = false;
     _isLoading.value = true;
 
-    isSeviceEnable = await Geolocator.isLocationServiceEnabled();
-    if (!isSeviceEnable) {
+    isSeviceEnableStatus = await Geolocator.isLocationServiceEnabled();
+    if (!isSeviceEnableStatus) {
       // return Future.error("Location not enable");
 
       // There is no service enable

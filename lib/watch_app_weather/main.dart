@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-
-import 'controller_watch_weather.dart';
-import 'widget_weather_watch.dart';
+import 'package:weather_app/watch_app_weather/controller_watch_weather.dart';
+import 'package:weather_app/watch_app_weather/widget_weather_watch.dart';
 
 void main() => runApp(const MyApp());
 
@@ -20,8 +19,6 @@ class MyApp extends StatelessWidget {
         Get.put(GlobalController(), permanent: true);
     double widthScreenDevice = MediaQuery.of(context).size.width;
     globalController.updateWatchSize(widthScreenDevice);
-
-    globalController.getWeatherData();
 
     return const MaterialApp(
       home: MyHomePage(),
@@ -43,11 +40,12 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
   }
 
+  final GlobalController globalController =
+      Get.put(GlobalController(), permanent: true);
+
   Future<void> fetchData() async {
     // Simulate fetching new data
     // await Future.delayed(const Duration(seconds: 2));
-    final GlobalController globalController = Get.find<GlobalController>();
-    // print('updata new data ....');
     setState(() {
       globalController.getWeatherData();
     });
@@ -55,9 +53,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final GlobalController globalController =
-        Get.put(GlobalController(), permanent: true);
-
     double scaleRatio = globalController.getScaleRatio();
 
     return Scaffold(
