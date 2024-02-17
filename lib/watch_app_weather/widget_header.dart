@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
 
 import 'controller_watch_weather.dart';
-
-final GlobalController globalController =
-    Get.put(GlobalController(), permanent: true);
 
 // ignore: must_be_immutable
 class WidgetHeader extends StatelessWidget {
@@ -22,6 +18,8 @@ class WidgetHeader extends StatelessWidget {
   late String city;
 
   getData() async {
+    final GlobalController globalController =
+        Get.put(GlobalController(), permanent: true);
     // Get City using (lat,lon)
     // List<Placemark> placemark = await placemarkFromCoordinates(lat, lon);
     // Placemark place = placemark[0];
@@ -53,16 +51,7 @@ class WidgetHeader extends StatelessWidget {
     city = globalController.getData().data?.location?.name ?? 'Error Network';
 
     if (city == 'Error Network') {
-      if (globalController.isSeviceEnable == true) {
-        if ((globalController.getlocationPermission() ==
-                LocationPermission.denied) ||
-            (globalController.getlocationPermission() ==
-                LocationPermission.deniedForever)) {
-          city = 'Check Location Permission';
-        }
-      } else {
-        city = 'No GPS/Wifi';
-      }
+      city = globalController.errorMessage;
     }
     // Get localtime in weather data
     // ignore: unused_local_variable
@@ -83,6 +72,8 @@ class WidgetHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     getData();
+    final GlobalController globalController =
+        Get.put(GlobalController(), permanent: true);
     double scaleRatio = globalController.getScaleRatio();
 
     return Flex(
@@ -156,6 +147,8 @@ class CityListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final GlobalController globalController =
+        Get.put(GlobalController(), permanent: true);
     var selectedCityIndex = globalController.getCityIndex();
     double scaleRatio = globalController.getScaleRatio();
 

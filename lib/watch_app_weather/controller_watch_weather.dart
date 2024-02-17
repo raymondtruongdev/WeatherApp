@@ -1,8 +1,9 @@
 import 'dart:async';
+import 'package:connectivity/connectivity.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/state_manager.dart';
+import 'package:weather_app/watch_app_weather/fetch_weather.dart';
 
-import 'fetch_weather.dart';
 import 'weather_data_v2.dart';
 
 class GlobalController extends GetxController {
@@ -16,8 +17,11 @@ class GlobalController extends GetxController {
   double _scaleRatio = 0.0;
   bool isSeviceEnable = false;
   bool _isCircleDevice = false;
+  String errorMessage = '';
+  double widthScreenDevice = 0.0;
+  double heightScreenDevice = 0.0;
 
-  LocationPermission _locationPermission = LocationPermission.denied;
+  LocationPermission _locationPermission = LocationPermission.unableToDetermine;
 
   RxBool checkLoading() => _isLoading;
   RxBool checkTimeout() => _isTimeout;
@@ -41,10 +45,10 @@ class GlobalController extends GetxController {
     _longitude.value = value;
   }
 
-  final weatherData = WeatherApiData().obs;
+  WeatherApiData weatherData = WeatherApiData();
 
   WeatherApiData getData() {
-    return weatherData.value;
+    return weatherData;
   }
 
   void updateWatchSize(double widthScreenDevice, double heightScreenDevice) {
@@ -58,10 +62,16 @@ class GlobalController extends GetxController {
 
     _scaleRatio = _watchSize.toDouble() / defaultWatchSize;
 
-    if (heightScreenDevice <= widthScreenDevice * 0.2) {
+    if (heightScreenDevice <= widthScreenDevice * 1.1) {
       // heigth < 110% of width => circle face
       _isCircleDevice = true;
     }
+    this.widthScreenDevice = widthScreenDevice;
+    this.heightScreenDevice = heightScreenDevice;
+
+    // print(this.widthScreenDevice);
+    // print(this.heightScreenDevice);
+    // print(isCircleDevice());
   }
 
   @override
@@ -76,6 +86,7 @@ class GlobalController extends GetxController {
   Future<void> getWeatherData() async {
     if (_cityIndex.toInt() == 0) {
       try {
+        await checkInternetConnectivity();
         await checkLocationPermission();
         await getCurrentLocation();
         await getNewWeatherData();
@@ -83,20 +94,18 @@ class GlobalController extends GetxController {
         // print('GPS error');
       }
     } else {
-      getNewWeatherData();
+      _isLoading.value = true;
+      await checkInternetConnectivity();
+      await getNewWeatherData();
     }
   }
 
   Future<void> checkLocationPermission() async {
-    bool isSeviceEnableStatus;
-
-    isSeviceEnable = false;
     _isLoading.value = true;
-
+    bool isSeviceEnableStatus;
     isSeviceEnableStatus = await Geolocator.isLocationServiceEnabled();
     if (!isSeviceEnableStatus) {
       // return Future.error("Location not enable");
-
       // There is no service enable
       isSeviceEnable = false;
       _isLoading.value = false;
@@ -106,26 +115,31 @@ class GlobalController extends GetxController {
     _locationPermission = await Geolocator.checkPermission();
 
     if (_locationPermission == LocationPermission.deniedForever) {
+      isSeviceEnable = true;
       _isLoading.value = false;
+      errorMessage = 'Check Location Permission';
       return Future.error("Location permission denied forever");
     }
 
 // request permission
     if (_locationPermission == LocationPermission.denied) {
+      isSeviceEnable = true;
+      errorMessage = 'Check Location Permission';
       _locationPermission = await Geolocator.requestPermission();
       if (_locationPermission == LocationPermission.denied) {
         _isLoading.value = false;
+        errorMessage = 'Check Location Permission';
         return Future.error("Location permission denied");
+      } else {
+        _isLoading.value = false;
       }
-    }
-    if ((_locationPermission == LocationPermission.whileInUse) ||
-        (_locationPermission == LocationPermission.always)) {
-      isSeviceEnable = true;
     }
   }
 
   Future<void> getCurrentLocation() async {
-    if (isSeviceEnable) {
+    if ((isSeviceEnable) &&
+        ((_locationPermission == LocationPermission.whileInUse) ||
+            (_locationPermission == LocationPermission.always))) {
       await Geolocator.getCurrentPosition(
               desiredAccuracy: LocationAccuracy.high)
           .then((value) {
@@ -142,17 +156,34 @@ class GlobalController extends GetxController {
   Future<void> getNewWeatherData() async {
     if ((_latitude.toDouble() != 0) && (_longitude.toDouble() != 0)) {
       _isLoading.value = true;
-      FetchWeather()
-          .processData(_latitude.value, _longitude.value)
-          .then((WeatherApiData? result) {
-        weatherData.value = result as WeatherApiData;
+      try {
+        FetchWeather()
+            .processData(_latitude.value, _longitude.value)
+            .then((WeatherApiData? result) {
+          weatherData = result as WeatherApiData;
+          _isLoading.value = false;
+        });
+      } catch (e) {
         _isLoading.value = false;
-      });
+      }
     } else {
-      _isLoading.value = true;
-      weatherData.value = (WeatherApiData());
+      // _isLoading.value = true;
+      weatherData = (WeatherApiData());
       await Future.delayed(const Duration(milliseconds: 200));
       _isLoading.value = false;
+    }
+    // _isLoading.value = false;
+  }
+
+  Future<bool> checkInternetConnectivity() async {
+    var connectivityResult = await Connectivity().checkConnectivity();
+    if (connectivityResult == ConnectivityResult.none) {
+      // print('No Internet connection');
+      errorMessage = 'No Internet connection';
+      return false;
+    } else {
+      // print('Internet connection available');
+      return true;
     }
   }
 }
