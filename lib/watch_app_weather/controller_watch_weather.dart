@@ -7,13 +7,11 @@ import 'package:weather_app/watch_app_weather/fetch_weather.dart';
 import 'weather_data_v2.dart';
 
 class GlobalController extends GetxController {
-  final RxDouble _watchSize = 0.0.obs;
   final RxBool _isLoading = true.obs;
-  final RxBool _isTimeout = false.obs;
-  final RxDouble _latitude = 0.0.obs;
-  final RxDouble _longitude = 0.0.obs;
-  final RxInt _currentIndex = 0.obs;
-  final RxInt _cityIndex = 0.obs;
+  double _watchSize = 0.0;
+  double _latitude = 0.0;
+  double _longitude = 0.0;
+  int _cityIndex = 0;
   double _scaleRatio = 0.0;
   bool isSeviceEnable = false;
   bool _isCircleDevice = false;
@@ -24,25 +22,23 @@ class GlobalController extends GetxController {
   LocationPermission _locationPermission = LocationPermission.unableToDetermine;
 
   RxBool checkLoading() => _isLoading;
-  RxBool checkTimeout() => _isTimeout;
-  RxDouble getLattitude() => _latitude;
-  RxDouble getLongitude() => _longitude;
-  RxInt getIndex() => _currentIndex;
-  RxInt getCityIndex() => _cityIndex;
+  double getLattitude() => _latitude;
+  double getLongitude() => _longitude;
+  int getCityIndex() => _cityIndex;
   double getScaleRatio() => _scaleRatio;
   LocationPermission getlocationPermission() => _locationPermission;
   bool isCircleDevice() => _isCircleDevice;
 
   setCityIndex(int value) {
-    _cityIndex.value = value;
+    _cityIndex = value;
   }
 
   setLatitude(double value) {
-    _latitude.value = value;
+    _latitude = value;
   }
 
   setLongitude(double value) {
-    _longitude.value = value;
+    _longitude = value;
   }
 
   WeatherApiData weatherData = WeatherApiData();
@@ -56,7 +52,7 @@ class GlobalController extends GetxController {
     // If widthScreen > maxScreen : _watchSize = maxScreen;
     // If 0 <= widthScreen <= maxScreen : _watchSize = widthScreen;
     double maxScreen = 1080.0; // 384.0;
-    _watchSize.value = widthScreen.clamp(0, maxScreen);
+    _watchSize = widthScreen.clamp(0, maxScreen);
 
     double defaultWatchSize = 390;
 
@@ -80,7 +76,7 @@ class GlobalController extends GetxController {
   @override
   void onInit() {
     // _cityIndex.value = 1;
-    _watchSize.value = 1080.0;
+    _watchSize = 1080.0;
 
     super.onInit();
   }
@@ -155,13 +151,13 @@ class GlobalController extends GetxController {
               desiredAccuracy: LocationAccuracy.high)
           .then((value) {
         // update our lattitude and longitude
-        _latitude.value = value.latitude;
-        _longitude.value = value.longitude;
+        _latitude = value.latitude;
+        _longitude = value.longitude;
         _isLoading.value = false;
       });
     } else {
-      _latitude.value = 0;
-      _longitude.value = 0;
+      _latitude = 0;
+      _longitude = 0;
       _isLoading.value = false;
     }
   }
@@ -171,7 +167,7 @@ class GlobalController extends GetxController {
       _isLoading.value = true;
       try {
         FetchWeather()
-            .processData(_latitude.value, _longitude.value)
+            .processData(_latitude, _longitude)
             .then((WeatherApiData? result) {
           weatherData = result as WeatherApiData;
           _isLoading.value = false;
