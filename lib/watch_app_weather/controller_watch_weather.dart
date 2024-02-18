@@ -51,27 +51,30 @@ class GlobalController extends GetxController {
     return weatherData;
   }
 
-  void updateWatchSize(double widthScreenDevice, double heightScreenDevice) {
-    // If widthScreenDevice <       0   : _watchSize = 0;
-    // If widthScreenDevice > maxScreen : _watchSize = maxScreen;
-    // If 0 <= widthScreenDevice <= maxScreen : _watchSize = widthScreenDevice;
+  void updateWatchSize(double widthScreen, double heightScreen) {
+    // If widthScreen <       0   : _watchSize = 0;
+    // If widthScreen > maxScreen : _watchSize = maxScreen;
+    // If 0 <= widthScreen <= maxScreen : _watchSize = widthScreen;
     double maxScreen = 1080.0; // 384.0;
-    _watchSize.value = widthScreenDevice.clamp(0, maxScreen);
+    _watchSize.value = widthScreen.clamp(0, maxScreen);
 
     double defaultWatchSize = 390;
 
     _scaleRatio = _watchSize.toDouble() / defaultWatchSize;
 
-    if (heightScreenDevice <= widthScreenDevice * 1.1) {
+    if (heightScreen <= widthScreen * 1.1) {
       // heigth < 110% of width => circle face
       _isCircleDevice = true;
+      print('This is circle device');
+    } else {
+      _isCircleDevice = false;
+      print('This is NOT circle device');
     }
-    this.widthScreenDevice = widthScreenDevice;
-    this.heightScreenDevice = heightScreenDevice;
-
-    // print(this.widthScreenDevice);
-    // print(this.heightScreenDevice);
-    // print(isCircleDevice());
+    print('widthScreen Controller: $widthScreen');
+    print('heightScreen Controller: $heightScreen');
+    print('ScreenIsCircle Controller: $_isCircleDevice()');
+    widthScreenDevice = widthScreen;
+    heightScreenDevice = heightScreen;
   }
 
   @override
