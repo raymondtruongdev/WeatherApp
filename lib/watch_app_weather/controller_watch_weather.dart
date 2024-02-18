@@ -117,6 +117,13 @@ class GlobalController extends GetxController {
     // status of permission
     _locationPermission = await Geolocator.checkPermission();
 
+    if ((_locationPermission == LocationPermission.whileInUse) ||
+        (_locationPermission == LocationPermission.always)) {
+      isSeviceEnable = true;
+      _isLoading.value = false;
+      return;
+    }
+
     if (_locationPermission == LocationPermission.deniedForever) {
       isSeviceEnable = true;
       _isLoading.value = false;
