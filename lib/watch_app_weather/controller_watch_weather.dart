@@ -83,12 +83,12 @@ class GlobalController extends GetxController {
     _watchSize.value = 1080.0;
 
     super.onInit();
-    getWeatherData();
   }
 
   Future<void> getWeatherData() async {
     if (_cityIndex.toInt() == 0) {
       try {
+        _isLoading.value = true;
         await checkInternetConnectivity();
         await checkLocationPermission();
         await getCurrentLocation();
@@ -147,6 +147,7 @@ class GlobalController extends GetxController {
   }
 
   Future<void> getCurrentLocation() async {
+    _isLoading.value = true;
     if ((isSeviceEnable) &&
         ((_locationPermission == LocationPermission.whileInUse) ||
             (_locationPermission == LocationPermission.always))) {
@@ -156,10 +157,12 @@ class GlobalController extends GetxController {
         // update our lattitude and longitude
         _latitude.value = value.latitude;
         _longitude.value = value.longitude;
+        _isLoading.value = false;
       });
     } else {
       _latitude.value = 0;
       _longitude.value = 0;
+      _isLoading.value = false;
     }
   }
 

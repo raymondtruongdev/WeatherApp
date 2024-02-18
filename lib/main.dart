@@ -39,6 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
+    fetchData();
   }
 
   final GlobalController globalController =
@@ -63,6 +64,8 @@ class _MyHomePageState extends State<MyHomePage> {
         () => globalController.checkLoading().isTrue
             ? Center(
                 child: Container(
+                width: globalController.widthScreenDevice,
+                height: globalController.widthScreenDevice,
                 color: globalController.isCircleDevice()
                     ? Colors.black
                     : Colors.white,

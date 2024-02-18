@@ -39,6 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
+    fetchData();
   }
 
   final GlobalController globalController =
@@ -57,33 +58,38 @@ class _MyHomePageState extends State<MyHomePage> {
     double scaleRatio = globalController.getScaleRatio();
 
     return Scaffold(
-        backgroundColor:
-            globalController.isCircleDevice() ? Colors.black : Colors.white,
         body: RefreshIndicator(
-          onRefresh: fetchData,
-          child: Obx(
-            () => globalController.checkLoading().isTrue
-                ? Center(
-                    child: ClipOval(
-                    child: Container(
-                      width: 390 * scaleRatio,
-                      height: 390 * scaleRatio,
-                      color: Colors.black,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            "lib/watch_app_weather/assets/icons/clouds.png",
-                            height: 200 * scaleRatio,
-                            width: 200 * scaleRatio,
-                          ),
-                          const CircularProgressIndicator()
-                        ],
-                      ),
+      onRefresh: fetchData,
+      child: Obx(
+        () => globalController.checkLoading().isTrue
+            ? Center(
+                child: Container(
+                width: globalController.widthScreenDevice,
+                height: globalController.widthScreenDevice,
+                color: globalController.isCircleDevice()
+                    ? Colors.black
+                    : Colors.white,
+                child: ClipOval(
+                  child: Container(
+                    width: 390 * scaleRatio,
+                    height: 390 * scaleRatio,
+                    color: Colors.black,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          "lib/watch_app_weather/assets/icons/clouds.png",
+                          height: 200 * scaleRatio,
+                          width: 200 * scaleRatio,
+                        ),
+                        const CircularProgressIndicator()
+                      ],
                     ),
-                  ))
-                : const WeatherWatchForeCast(),
-          ),
-        ));
+                  ),
+                ),
+              ))
+            : const WeatherWatchForeCast(),
+      ),
+    ));
   }
 }
