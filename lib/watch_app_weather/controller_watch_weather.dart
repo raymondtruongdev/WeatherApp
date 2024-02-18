@@ -106,6 +106,7 @@ class GlobalController extends GetxController {
     if (!isSeviceEnableStatus) {
       // return Future.error("Location not enable");
       // There is no service enable
+      errorMessage = 'GPS NOT AVILABLE';
       isSeviceEnable = false;
       _isLoading.value = false;
       return;
