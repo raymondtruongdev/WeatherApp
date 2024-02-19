@@ -22,32 +22,35 @@ class _WeatherWatchForeCastState extends State<WeatherWatchForeCast> {
 
     double scaleRatio = globalController.getScaleRatio();
     return Center(
-      child: ClipOval(
-        child: Container(
-          color: Colors.black,
-          width: 390 * scaleRatio,
-          height: 390 * scaleRatio,
-          child: ListView(
-            scrollDirection: Axis.vertical,
-            children: [
-              SizedBox(height: 1 * scaleRatio),
-              SizedBox(
-                height: 80 * scaleRatio,
-                child: WidgetHeader(),
-              ),
-              SizedBox(
-                height: 160 * scaleRatio,
-                child: const WidgetCurrent(),
-              ),
-              SizedBox(
-                height: 100 * scaleRatio,
-                child: const WidgetHourly(),
-              ),
-              Center(
-                child: WidgetDaily(),
-              ),
-              ComfortLevel(),
-            ],
+      child: Container(
+        color: globalController.isCircleDevice() ? Colors.black : Colors.white,
+        child: ClipOval(
+          child: Container(
+            color: Colors.black,
+            width: 390 * scaleRatio,
+            height: 390 * scaleRatio,
+            child: ListView(
+              scrollDirection: Axis.vertical,
+              children: [
+                SizedBox(height: 1 * scaleRatio),
+                SizedBox(
+                  height: 80 * scaleRatio,
+                  child: WidgetHeader(),
+                ),
+                SizedBox(
+                  height: 160 * scaleRatio,
+                  child: const WidgetCurrent(),
+                ),
+                SizedBox(
+                  height: 100 * scaleRatio,
+                  child: const WidgetHourly(),
+                ),
+                Center(
+                  child: WidgetDaily(),
+                ),
+                ComfortLevel(),
+              ],
+            ),
           ),
         ),
       ),
