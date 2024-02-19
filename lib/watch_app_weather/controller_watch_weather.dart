@@ -51,7 +51,7 @@ class GlobalController extends GetxController {
     // If widthScreen <       0   : _watchSize = 0;
     // If widthScreen > maxScreen : _watchSize = maxScreen;
     // If 0 <= widthScreen <= maxScreen : _watchSize = widthScreen;
-    double maxScreen = 1080.0; // 384.0;
+    double maxScreen = 1080.0;
     _watchSize = widthScreen.clamp(0, maxScreen);
 
     double defaultWatchSize = 390;
@@ -100,7 +100,6 @@ class GlobalController extends GetxController {
   }
 
   Future<void> checkLocationPermission() async {
-    _isLoading.value = true;
     bool isSeviceEnableStatus;
     isSeviceEnableStatus = await Geolocator.isLocationServiceEnabled();
     if (!isSeviceEnableStatus) {
@@ -108,7 +107,6 @@ class GlobalController extends GetxController {
       // There is no service enable
       errorMessage = 'GPS NOT AVILABLE';
       isSeviceEnable = false;
-      _isLoading.value = false;
       return;
     }
     // status of permission
@@ -117,13 +115,11 @@ class GlobalController extends GetxController {
     if ((_locationPermission == LocationPermission.whileInUse) ||
         (_locationPermission == LocationPermission.always)) {
       isSeviceEnable = true;
-      _isLoading.value = false;
       return;
     }
 
     if (_locationPermission == LocationPermission.deniedForever) {
       isSeviceEnable = true;
-      _isLoading.value = false;
       errorMessage = 'Check Location Permission';
       return Future.error("Location permission denied forever");
     }
@@ -134,32 +130,26 @@ class GlobalController extends GetxController {
       errorMessage = 'Check Location Permission';
       _locationPermission = await Geolocator.requestPermission();
       if (_locationPermission == LocationPermission.denied) {
-        _isLoading.value = false;
         errorMessage = 'Check Location Permission';
         return Future.error("Location permission denied");
-      } else {
-        _isLoading.value = false;
       }
     }
   }
 
   Future<void> getCurrentLocation() async {
-    _isLoading.value = true;
     if ((isSeviceEnable) &&
         ((_locationPermission == LocationPermission.whileInUse) ||
             (_locationPermission == LocationPermission.always))) {
       await Geolocator.getCurrentPosition(
               desiredAccuracy: LocationAccuracy.high)
           .then((value) {
-        // update our lattitude and longitude
+        // update current location data by using device GPS
         _latitude = value.latitude;
         _longitude = value.longitude;
-        _isLoading.value = false;
       });
     } else {
       _latitude = 0;
       _longitude = 0;
-      _isLoading.value = false;
     }
   }
 
@@ -177,12 +167,10 @@ class GlobalController extends GetxController {
         _isLoading.value = false;
       }
     } else {
-      // _isLoading.value = true;
       weatherData = (WeatherApiData());
       await Future.delayed(const Duration(milliseconds: 200));
       _isLoading.value = false;
     }
-    // _isLoading.value = false;
   }
 
   Future<bool> checkInternetConnectivity() async {
