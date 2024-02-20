@@ -12,27 +12,49 @@ void main() {
   WidgetsBinding.instance.addObserver(AppLifecycleObserver());
 }
 
-class MyApp extends StatelessWidget {
+final GlobalController globalController =
+    Get.put(GlobalController(), permanent: true);
+
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     // Set the system UI overlays to FullScreen mode
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
 
-    // Set watchSize value into Controller
-    final GlobalController globalController =
-        Get.put(GlobalController(), permanent: true);
+    // Get Size of device
     double widthScreenDevice = MediaQuery.of(context).size.width;
     double heightScreenDevice = MediaQuery.of(context).size.height;
-    globalController.updateWatchSize(widthScreenDevice, heightScreenDevice);
-
-    globalController.loadDataStateController();
-
-    return const MaterialApp(
-      home: MyHomePage(),
-      debugShowCheckedModeBanner: false,
-    );
+    if ((widthScreenDevice > 0) && (heightScreenDevice > 0)) {
+      globalController.updateWatchSize(widthScreenDevice, heightScreenDevice);
+      globalController.loadDataStateController();
+    }
+    // This code to handle error Flutter bug when it returns the
+    // widthScreenDevice/heightScreenDevice = 0
+    if (widthScreenDevice == 0 || heightScreenDevice == 0) {
+      return const MaterialApp(
+        home: Center(
+          child: Text("Loading..."),
+        ),
+        debugShowCheckedModeBanner: false,
+      );
+    } else {
+      return const MaterialApp(
+        home: MyHomePage(),
+        debugShowCheckedModeBanner: false,
+      );
+    }
   }
 }
 
@@ -48,9 +70,6 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
   }
-
-  final GlobalController globalController =
-      Get.put(GlobalController(), permanent: true);
 
   Future<void> fetchData() async {
     // Simulate fetching new data
