@@ -2,13 +2,15 @@ import 'dart:async';
 import 'package:connectivity/connectivity.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/state_manager.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:weather_app/logger_custom.dart';
 import 'package:weather_app/watch_app_weather/fetch_weather.dart';
 
 import 'weather_data_v2.dart';
 
 class GlobalController extends GetxController {
-  final RxBool _isLoading = true.obs;
+  final RxBool _isLoading = false.obs;
   double _watchSize = 0.0;
   double _latitude = 0.0;
   double _longitude = 0.0;
@@ -186,5 +188,17 @@ class GlobalController extends GetxController {
       // print('Internet connection available');
       return true;
     }
+  }
+
+  Future<void> loadDataStateController() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var setCityIndex = (prefs.getInt('_cityIndex') ?? 0);
+    var setLatitude = (prefs.getDouble('_latitude') ?? 0);
+    var setLongitude = (prefs.getDouble('_longitude') ?? 0);
+
+    _cityIndex = setCityIndex;
+    _latitude = setLatitude;
+    _longitude = setLongitude;
+    getWeatherData();
   }
 }

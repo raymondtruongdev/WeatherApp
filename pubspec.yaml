@@ -48,6 +48,7 @@ dependencies:
   connectivity:
   wifi_info_flutter:
   logger:
+  shared_preferences: ^2.2.2
 
 dev_dependencies:
   flutter_test:

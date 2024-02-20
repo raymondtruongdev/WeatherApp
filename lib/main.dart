@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:weather_app/watch_app_weather/app_lifecycle_observer.dart';
 import 'package:weather_app/watch_app_weather/controller_watch_weather.dart';
 import 'package:weather_app/watch_app_weather/widget_weather_watch.dart';
 
-void main() => runApp(const MyApp());
+void main() {
+  runApp(const MyApp());
+
+  // Observer to save data when the app is closed or paused
+  WidgetsBinding.instance.addObserver(AppLifecycleObserver());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -20,6 +26,8 @@ class MyApp extends StatelessWidget {
     double widthScreenDevice = MediaQuery.of(context).size.width;
     double heightScreenDevice = MediaQuery.of(context).size.height;
     globalController.updateWatchSize(widthScreenDevice, heightScreenDevice);
+
+    globalController.loadDataStateController();
 
     return const MaterialApp(
       home: MyHomePage(),
@@ -39,7 +47,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    fetchData();
   }
 
   final GlobalController globalController =
@@ -48,6 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<void> fetchData() async {
     // Simulate fetching new data
     // await Future.delayed(const Duration(seconds: 2));
+
     setState(() {
       globalController.getWeatherData();
     });
