@@ -47,6 +47,7 @@ dependencies:
   flutter_svg:
   connectivity:
   wifi_info_flutter:
+  logger:
 
 dev_dependencies:
   flutter_test:
